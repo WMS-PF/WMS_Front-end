@@ -9,7 +9,7 @@ export default function IncomeOrder() {
   return (
     <>
       <h1 className={styles.h1}>
-        Ordenes de recibo
+        Ordenes de ingreso
         <Link href="/">
           <AiOutlineSearch />
         </Link>
