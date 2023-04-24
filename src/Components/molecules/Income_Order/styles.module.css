@@ -1,5 +1,5 @@
 .orderscontainer {
-  background-color: red;
+  background-color: #d9d9d9;
   display: grid;
   place-content: center;
   border-radius: 16px;
@@ -8,7 +8,7 @@
 }
 .order {
   width: 300px;
-  height: 80px;
+
   background-color: aliceblue;
   color: black;
   margin-top: 15px;
@@ -21,7 +21,7 @@
   justify-content: center;
 }
 .h1 {
-  font-size: 20px;
+  font-size: 18px;
   font-style: normal;
   font-weight: bold;
   display: flex;

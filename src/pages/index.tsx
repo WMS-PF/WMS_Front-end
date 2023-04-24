@@ -4,9 +4,8 @@ import styles from "@/styles/Home.module.css";
 import IncomeOrder from "@/Components/molecules/Income_Order";
 import ShippingOrder from "@/Components/molecules/Shipping_Order";
 import SearchBar from "@/Components/molecules/SearchBar";
-
+import OrderList from "@/Components/molecules/OrderList";
 const inter = Inter({ subsets: ["latin"] });
-
 
 export default function Home() {
   return (
@@ -14,16 +13,14 @@ export default function Home() {
       <Head>
         <title>WMS LogixPro - Home</title>
       </Head>
-      <main className={`${styles.main} ${inter.className}`}>
+      <main className={styles.main}>
         <div className={styles.homecontainer}>
           <div className={styles.ordercontainer}>
             <IncomeOrder />
             <ShippingOrder />
           </div>
-          <div>
-            {" "}
-            <SearchBar />
-          </div>
+          <SearchBar />
+          <OrderList />
         </div>
       </main>
     </>
