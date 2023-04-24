@@ -7,6 +7,7 @@ import SearchBar from "@/Components/molecules/SearchBar";
 
 const inter = Inter({ subsets: ["latin"] });
 
+
 export default function Home() {
   return (
     <>
