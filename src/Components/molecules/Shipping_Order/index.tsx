@@ -2,14 +2,22 @@ import styles from "./styles.module.css";
 import { AiOutlineSearch } from "react-icons/ai";
 import Link from "next/link";
 import OrderInformation, { GpsJson } from "@/pages/api/apisimulation";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 type OrderInformationProps = {
   information: GpsJson;
 };
 
 export default function ShippingOrder(props: OrderInformationProps) {
   const { information } = props;
-  const { status, orderId } = information;
+  const { status, orderid } = information;
+  const [info, setInfo] = useState<GpsJson | null>(null);
+
+  useEffect(() => {
+    const intervalo = setInterval(async () => {
+      const information2 = await OrderInformation();
+      setInfo(information2);
+    }, 6000);
+  }, []);
 
   const guardarInfo = () => {
     const randomNumber = Math.random();
@@ -28,11 +36,11 @@ export default function ShippingOrder(props: OrderInformationProps) {
       <div className={styles.orderscontainer}>
         <div className={styles.order} id="div1">
           {" "}
-          N°{orderId} <br></br> {status} <br></br>
+          N°{orderid} <br></br> {status} <br></br>
         </div>
         <div className={styles.order} id="div2">
           {" "}
-          N°{orderId} <br></br> {status} <br></br>
+          N°{orderid} <br></br> {status} <br></br>
         </div>
         <div className={styles.order}> </div>
       </div>
