@@ -1,23 +1,36 @@
 .main {
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
   align-items: center;
-  padding-top: 4rem;
-  margin: 0;
+  padding-top: 1rem;
   min-height: 100vh;
+  width: 100%;
 }
 .ordercontainer {
   display: flex;
   flex-direction: column;
-  margin-left: 35px;
   justify-self: left;
-  height: 71vh;
 }
 .homecontainer {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
+  margin-inline: 35px;
 }
+
+.orderinformationcontainer {
+  display: flex;
+  flex-direction: row;
+  align-self: flex-end;
+}
+.dashboard {
+  align-self: flex-end;
+  gap: 29px;
+  margin-right: 30px;
+  display: flex;
+  flex-direction: column;
+  width: 69%;
+}
+
 .description {
   display: inherit;
   justify-content: inherit;

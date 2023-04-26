@@ -5,10 +5,11 @@
   border-radius: 16px;
   margin-block: 20px;
   padding-bottom: 15px;
+  width: fit-content;
+  padding-inline: 20px;
 }
 .order {
-  width: 300px;
-
+  width: 246px;
   background-color: aliceblue;
   color: black;
   margin-top: 15px;
@@ -26,6 +27,6 @@
   font-weight: bold;
   display: flex;
   flex-direction: row;
-  width: 350px;
+  width: 283px;
   justify-content: space-between;
 }

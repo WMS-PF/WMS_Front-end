@@ -1,8 +1,7 @@
 .searchbar {
-  width: 100vh;
+  width: 60vh;
   background-color: #d9d9d9;
-  height: 60px;
-  margin-left: 85px;
+  height: 40px;
   border-radius: 16px;
   align-items: center;
   padding-inline: 20px;
@@ -11,11 +10,5 @@
   gap: 36px;
   opacity: 50%;
   color: black;
-}
-.resultdiv {
-  height: 71vh;
-  background-color: #d9d9d9;
-  margin-left: 85px;
-  margin-top: 40px;
-  border-radius: 16px;
+  align-self: flex-end;
 }
