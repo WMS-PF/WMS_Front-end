@@ -25,8 +25,8 @@ jobs:
       - run: COMMIT_ID=$(curl -s https://api.github.com/repos/owner/repo/commits/main | jq -r '.sha')
       - run: |
           aws deploy create-deployment \
-            --application-name s3_circle_ci \
-            --deployment-group-name s3_circle_group \
+            --application-name github_dep \
+            --deployment-group-name github_dep_group \
             --file-exists-behavior OVERWRITE \
             --deployment-config-name CodeDeployDefault.OneAtATime \
             --github-location repository=WMS-PF/WMS_LogixPro,commitId=COMMIT_ID
