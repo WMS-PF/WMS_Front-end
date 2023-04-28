@@ -12,6 +12,8 @@ jobs:
       - checkout
       - aws-cli/setup:
           profile-name: b4rz
+          aws-access-key-id: AWS_ACCESS_KEY_ID
+          aws-secret-access-key: AWS_SECRET_ACCESS_KEY
       - run: |
             COMMIT_ID=$(curl -s https://api.github.com/repos/WMS-PF/WMS_LogixPro/commits/circleci-and-codedeploy-setup | jq -r '.sha')
             aws deploy create-deployment \
@@ -29,7 +31,6 @@ jobs:
       steps:
         - checkout
         - aws-cli/setup:
-            profile-name: aflorez
             aws-access-key-id: AWSA_ACCESS_KEY_ID
             aws-secret-access-key: AWSA_SECRET_ACCESS_KEY
         - run: |
@@ -49,7 +50,6 @@ jobs:
       steps:
         - checkout
         - aws-cli/setup:
-            profile-name: jcamargo
             aws-access-key-id: AWSJ_ACCESS_KEY_ID
             aws-secret-access-key: AWSJ_SECRET_ACCESS_KEY
         - run: |
@@ -69,7 +69,6 @@ jobs:
       steps:
         - checkout
         - aws-cli/setup:
-            profile-name: nayelio
             aws-access-key-id: AWSN_ACCESS_KEY_ID
             aws-secret-access-key: AWSN_SECRET_ACCESS_KEY
         - run: |
