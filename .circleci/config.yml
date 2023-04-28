@@ -22,14 +22,19 @@ jobs:
         image: ubuntu-2204:2023.04.2
     steps:
       - checkout
-      - run: COMMIT_ID=$(curl -s https://api.github.com/repos/owner/repo/commits/main | jq -r '.sha')
-      - run: |
-          aws deploy create-deployment \
-            --application-name github_dep \
-            --deployment-group-name github_dep_group \
-            --file-exists-behavior OVERWRITE \
-            --deployment-config-name CodeDeployDefault.OneAtATime \
-            --github-location repository=WMS-PF/WMS_LogixPro,commitId=COMMIT_ID
+      - run:
+          name: Set commit ID
+          command: |
+            COMMIT_ID=$(curl -s https://api.github.com/repos/owner/repo/commits/main | jq -r '.sha')
+      - run:
+          name: Deploy to AWS
+          command: |
+            aws deploy create-deployment \
+              --application-name github_dep \
+              --deployment-group-name github_dep_group \
+              --file-exists-behavior OVERWRITE \
+              --deployment-config-name CodeDeployDefault.OneAtATime \
+              --github-location repository=WMS-PF/WMS_LogixPro,commitId=$COMMIT_ID
 
     
 
