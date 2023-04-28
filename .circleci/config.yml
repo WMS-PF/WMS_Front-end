@@ -1,8 +1,8 @@
 version: 2.1
 
 orbs:
-  aws-code-deploy: circleci/aws-code-deploy@3.0.0
   aws-cli: circleci/aws-cli@3.1.5
+  aws-code-deploy: circleci/aws-code-deploy@3.0.0
   
 
 jobs:
@@ -22,13 +22,13 @@ jobs:
         image: ubuntu-2204:2023.04.2
     steps:
       - checkout
-      - aws-code-deploy/deploy:
-          application-name: s3_circleci
-          auth:
-            - aws-cli/setup
-          bundle-bucket: logixpro-wms
-          bundle-key: WMS_LogixPro.zip
-          deployment-group: s3_circleci_group
+      - run: |
+          aws deploy create-deployment \
+            --application-name s3_circle_ci \
+            --deployment-group-name s3_circle_group \
+            --file-exists-behavior OVERWRITE\
+            --deployment-config-name CodeDeployDefault.OneAtATime \
+            --s3-location s3://logixpro-wms/WMS_LogixPro.zip
 
     
 
