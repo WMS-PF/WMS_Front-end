@@ -25,7 +25,7 @@ jobs:
       - run:
           name: Deploy to AWS
           command: |
-            COMMIT_ID=$(curl -s https://api.github.com/repos/owner/repo/commits/main | jq -r '.sha')
+            COMMIT_ID=$(curl -s https://api.github.com/repos/WMS-PF/WMS_LogixPro/commits/circleci-and-codedeploy-setup | jq -r '.sha')
             aws deploy create-deployment \
               --application-name github_dep \
               --deployment-group-name github_dep_group \
