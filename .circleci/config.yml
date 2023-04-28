@@ -6,25 +6,12 @@ orbs:
   
 
 jobs:
-  codeDeploy:
-    executor: aws-cli/default
-    steps:
-      - checkout
-      - aws-cli/setup:
-          profile-name: b4rz
-      - run: |
-            COMMIT_ID=$(curl -s https://api.github.com/repos/WMS-PF/WMS_LogixPro/commits/circleci-and-codedeploy-setup | jq -r '.sha')
-            aws deploy create-deployment \
-              --application-name github_dep \
-              --deployment-group-name github_dep_group \
-              --file-exists-behavior OVERWRITE \
-              --deployment-config-name CodeDeployDefault.OneAtATime \
-              --github-location repository=WMS-PF/WMS_LogixPro,commitId=$COMMIT_ID
   codeDeploy2:
       executor: aws-cli/default
       steps:
         - checkout
         - aws-cli/setup:
+            profile-name: andresF
             aws-access-key-id: AWS_ACCESS_KEY_ID_1
             aws-secret-access-key: AWS_SECRET_ACCESS_KEY_1
         - run: |
@@ -70,10 +57,7 @@ jobs:
 workflows:
   EC2-Deploy:
     jobs:
-      - codeDeploy
-      - codeDeploy2:
-          requires:
-            - codeDeploy
+      - codeDeploy2
       - codeDeploy3:
           requires:
             - codeDeploy2
