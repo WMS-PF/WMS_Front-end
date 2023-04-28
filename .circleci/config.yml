@@ -17,20 +17,33 @@ jobs:
           root: .
           paths:
             - .
-  Deploy:
+  s3Deploy:
     machine:
         image: ubuntu-2204:2023.04.2
     steps:
       - attach_workspace:
           at: .
       - checkout
-      - run: aws s3 sync . s3://logixpro-wms
+      - run: zip -r WMS_LogixPro.zip . && aws s3 cp WMS_LogixPro.zip s3://logixpro-wms
+  codeDeploy:
+    machine:
+        image: ubuntu-2204:2023.04.2
+    steps:
+      - aws-code-deploy/deploy:
+          application-name: myApplication
+          auth:
+            - aws-cli/setup
+          bundle-bucket: myApplicationS3Bucket
+          bundle-key: myS3BucketKey
+          deployment-group: myDeploymentGroup
+          service-role-arn: myDeploymentGroupRoleARN
+
     
 
 workflows:
   EC2-Deploy:
     jobs:
       - beforeDeploy
-      - Deploy:
+      - s3Deploy:
           requires:
             - beforeDeploy
