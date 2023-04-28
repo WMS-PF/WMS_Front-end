@@ -12,8 +12,6 @@ jobs:
       - checkout
       - aws-cli/setup:
           profile-name: b4rz
-          aws-access-key-id: AWS_ACCESS_KEY_ID
-          aws-secret-access-key: AWS_SECRET_ACCESS_KEY
       - run: |
             COMMIT_ID=$(curl -s https://api.github.com/repos/WMS-PF/WMS_LogixPro/commits/circleci-and-codedeploy-setup | jq -r '.sha')
             aws deploy create-deployment \
@@ -24,12 +22,16 @@ jobs:
               --github-location repository=WMS-PF/WMS_LogixPro,commitId=$COMMIT_ID
   codeDeploy2:
       executor: aws-cli/default
+      environment:
+        AWS_ACCESS_KEY_ID: AWSA_ACCESS_KEY_ID
+        AWS_SECRET_ACCESS_KEY: AWSA_SECRET_ACCESS_KEY
       steps:
         - checkout
         - aws-cli/setup:
             aws-access-key-id: AWSA_ACCESS_KEY_ID
             aws-secret-access-key: AWSA_SECRET_ACCESS_KEY
         - run: |
+            echo "AWS_ACCESS_KEY_ID: $AWSA_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY: $AWSA_SECRET_ACCESS_KEY"
             COMMIT_ID=$(curl -s https://api.github.com/repos/WMS-PF/WMS_LogixPro/commits/circleci-and-codedeploy-setup | jq -r '.sha')
             aws deploy create-deployment \
               --application-name Git_application \
