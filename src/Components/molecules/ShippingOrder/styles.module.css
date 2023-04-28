@@ -7,6 +7,7 @@
   padding-bottom: 15px;
   width: fit-content;
   padding-inline: 20px;
+  flex: 1;
 }
 .order {
   width: 246px;

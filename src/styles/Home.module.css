@@ -3,8 +3,9 @@
   flex-direction: column;
   align-items: center;
   padding-top: 1rem;
-  min-height: 100vh;
+  min-height: 100px;
   width: 100%;
+  height: 100%;
 }
 .ordercontainer {
   display: flex;
@@ -15,12 +16,14 @@
   display: flex;
   flex-direction: column;
   margin-inline: 35px;
+  height: 100%;
 }
 
 .orderinformationcontainer {
   display: flex;
   flex-direction: row;
   align-self: flex-end;
+  height: 100%;
 }
 .dashboard {
   align-self: flex-end;
@@ -28,7 +31,7 @@
   margin-right: 30px;
   display: flex;
   flex-direction: column;
-  width: 69%;
+  height: 100%;
 }
 
 .description {

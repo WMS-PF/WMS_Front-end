@@ -1,4 +1,4 @@
-import Menu from "@/Components/molecules/Menu";
+import Menu from "@/components/molecules/Menu";
 import "@/styles/globals.css";
 import type { AppProps } from "next/app";
 import Head from "next/head";

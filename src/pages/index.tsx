@@ -1,29 +1,28 @@
 import Head from "next/head";
 import { Inter } from "next/font/google";
 import styles from "@/styles/Home.module.css";
-import SearchBar from "@/Components/molecules/SearchBar";
-import OrderList from "@/Components/molecules/OrderList";
+import SearchBar from "@/components/molecules/SearchBar";
+import Order from "@/components/molecules/Order";
 import dynamic from "next/dynamic";
+import { useState } from "react";
+import { OrderDetails } from "@/types/order";
 
-const inter = Inter({ subsets: ["latin"] });
 const IncomeOrder = dynamic(
-  () => import("@/Components/molecules/Income_Order"),
+  () => import("@/components/molecules/IncomeOrder"),
   {
     ssr: false,
   }
 );
 const ShippingOrder = dynamic(
-  () => import("@/Components/molecules/Shipping_Order"),
+  () => import("@/components/molecules/ShippingOrder"),
   {
     ssr: false,
   }
 );
 
 export default function Home() {
-  const information = {
-    orderid: 12345,
-    status: "completado",
-  };
+  const [order, setOrder] = useState<null | OrderDetails>(null);
+
   return (
     <>
       <Head>
@@ -34,10 +33,10 @@ export default function Home() {
           <SearchBar />
           <div className={styles.orderinformationcontainer}>
             <div className={styles.ordercontainer}>
-              <IncomeOrder />
-              <ShippingOrder information={information} />
+              <IncomeOrder onChangeOrder={(order) => setOrder(order)} />
+              <ShippingOrder />
             </div>
-            <OrderList />
+            <Order order={order} />
           </div>
         </div>
       </main>

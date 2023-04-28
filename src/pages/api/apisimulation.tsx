@@ -1,6 +1,6 @@
 export interface GpsJson {
   orderid: number;
-  date?: number;
+  date?: string;
   business?: string;
   products?: [produtName: string, quantity: number];
   status: string;
