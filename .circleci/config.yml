@@ -6,25 +6,13 @@ orbs:
   
 
 jobs:
-  s3Deploy:
+  codeDeploy:
     executor: aws-cli/default
     steps:
       - checkout
       - aws-cli/setup:
-          profile-name: ubuntu
-      - run: zip -r WMS_LogixPro.zip . && aws s3 cp WMS_LogixPro.zip s3://logixpro-wms
-      - persist_to_workspace:
-          root: .
-          paths:
-            - .
-  codeDeploy:
-    machine:
-        image: ubuntu-2204:2023.04.2
-    steps:
-      - checkout
-      - run:
-          name: Deploy to AWS
-          command: |
+          profile-name: b4rz
+      - run: |
             COMMIT_ID=$(curl -s https://api.github.com/repos/WMS-PF/WMS_LogixPro/commits/circleci-and-codedeploy-setup | jq -r '.sha')
             aws deploy create-deployment \
               --application-name github_dep \
@@ -32,13 +20,82 @@ jobs:
               --file-exists-behavior OVERWRITE \
               --deployment-config-name CodeDeployDefault.OneAtATime \
               --github-location repository=WMS-PF/WMS_LogixPro,commitId=$COMMIT_ID
-
+      - persist_to_workspace:
+          root: .
+          paths:
+            - .
+  codeDeploy2:
+      executor: aws-cli/default
+      steps:
+        - checkout
+        - aws-cli/setup:
+            profile-name: aflorez
+            aws-access-key-id: AWSA_ACCESS_KEY_ID
+            aws-secret-access-key: AWSA_SECRET_ACCESS_KEY
+        - run: |
+            COMMIT_ID=$(curl -s https://api.github.com/repos/WMS-PF/WMS_LogixPro/commits/circleci-and-codedeploy-setup | jq -r '.sha')
+            aws deploy create-deployment \
+              --application-name Git_application \
+              --deployment-group-name development_gropup \
+              --file-exists-behavior OVERWRITE \
+              --deployment-config-name CodeDeployDefault.OneAtATime \
+              --github-location repository=WMS-PF/WMS_LogixPro,commitId=$COMMIT_ID
+        - persist_to_workspace:
+            root: .
+            paths:
+            - .
+  codeDeploy3:
+      executor: aws-cli/default
+      steps:
+        - checkout
+        - aws-cli/setup:
+            profile-name: jcamargo
+            aws-access-key-id: AWSJ_ACCESS_KEY_ID
+            aws-secret-access-key: AWSJ_SECRET_ACCESS_KEY
+        - run: |
+            COMMIT_ID=$(curl -s https://api.github.com/repos/WMS-PF/WMS_LogixPro/commits/circleci-and-codedeploy-setup | jq -r '.sha')
+            aws deploy create-deployment \
+              --application-name github \
+              --deployment-group-name github_auto \
+              --file-exists-behavior OVERWRITE \
+              --deployment-config-name CodeDeployDefault.OneAtATime \
+              --github-location repository=WMS-PF/WMS_LogixPro,commitId=$COMMIT_ID
+        - persist_to_workspace:
+            root: .
+            paths:
+            - .
+  codeDeploy4:
+      executor: aws-cli/default
+      steps:
+        - checkout
+        - aws-cli/setup:
+            profile-name: nayelio
+            aws-access-key-id: AWSN_ACCESS_KEY_ID
+            aws-secret-access-key: AWSN_SECRET_ACCESS_KEY
+        - run: |
+            COMMIT_ID=$(curl -s https://api.github.com/repos/WMS-PF/WMS_LogixPro/commits/circleci-and-codedeploy-setup | jq -r '.sha')
+            aws deploy create-deployment \
+              --application-name Nayeli_EC \
+              --deployment-group-name EC2Nayeli_DG \
+              --file-exists-behavior OVERWRITE \
+              --deployment-config-name CodeDeployDefault.OneAtATime \
+              --github-location repository=WMS-PF/WMS_LogixPro,commitId=$COMMIT_ID
+        - persist_to_workspace:
+            root: .
+            paths:
+            - .
     
 
 workflows:
   EC2-Deploy:
     jobs:
-      - s3Deploy
-      - codeDeploy:
+      - codeDeploy
+      - codeDeploy2:
           requires:
-            - s3Deploy
+            - codeDeploy
+      - codeDeploy3:
+          requires:
+            - codeDeploy2
+      - codeDeploy4:
+          requires:
+            - codeDeploy3
