@@ -1,7 +1,7 @@
 version: 2.1
 
 orbs:
-  node: circleci/node@5.1.0
+  aws-code-deploy: circleci/aws-code-deploy@3.0.0
   aws-cli: circleci/aws-cli@3.1.5
   
 
@@ -12,17 +12,10 @@ jobs:
       - checkout
       - aws-cli/setup:
           profile-name: ubuntu
-      - run: pkill -f "next start"
       - persist_to_workspace:
           root: .
           paths:
             - .
-  Build:
-    machine:
-        image: ubuntu-2204:2023.04.2
-    steps:
-      - checkout
-      - run: npm install && npx next build
   Deploy:
     machine:
         image: ubuntu-2204:2023.04.2
@@ -37,9 +30,6 @@ workflows:
   EC2-Deploy:
     jobs:
       - beforeDeploy
-      - Build:
-          requires:
-            - beforeDeploy
       - Deploy:
           requires:
-            - Build
+            - beforeDeploy
