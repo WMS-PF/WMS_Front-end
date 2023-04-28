@@ -1,3 +1,3 @@
 #!/bin/bash
-cd /home/ubuntu/WMS_Front-end
-sudo pkill -f 
+cd /home/ubuntu/WMS_LogixPro
+sudo pkill -f "next start"
