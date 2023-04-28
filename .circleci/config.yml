@@ -20,24 +20,6 @@ jobs:
               --file-exists-behavior OVERWRITE \
               --deployment-config-name CodeDeployDefault.OneAtATime \
               --github-location repository=WMS-PF/WMS_LogixPro,commitId=$COMMIT_ID
-  codeDeploy2:
-      executor: aws-cli/default
-      environment:
-        AWS_ACCESS_KEY_ID: AWS_ACCESS_KEY_ID_1
-        AWS_SECRET_ACCESS_KEY: AWS_SECRET_ACCESS_KEY_1
-      steps:
-        - checkout
-        - aws-cli/setup:
-            aws-access-key-id: AWS_ACCESS_KEY_ID_1
-            aws-secret-access-key: AWS_SECRET_ACCESS_KEY_1
-        - run: |
-            COMMIT_ID=$(curl -s https://api.github.com/repos/WMS-PF/WMS_LogixPro/commits/circleci-and-codedeploy-setup | jq -r '.sha')
-            aws deploy create-deployment \
-              --application-name Git_application \
-              --deployment-group-name development_gropup \
-              --file-exists-behavior OVERWRITE \
-              --deployment-config-name CodeDeployDefault.OneAtATime \
-              --github-location repository=WMS-PF/WMS_LogixPro,commitId=$COMMIT_ID
   codeDeploy3:
       executor: aws-cli/default
       steps:
@@ -74,12 +56,9 @@ workflows:
   EC2-Deploy:
     jobs:
       - codeDeploy
-      - codeDeploy2:
-          requires:
-            - codeDeploy
       - codeDeploy3:
           requires:
-            - codeDeploy2
+            - codeDeploy
       - codeDeploy4:
           requires:
             - codeDeploy3
