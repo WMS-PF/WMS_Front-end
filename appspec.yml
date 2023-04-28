@@ -2,7 +2,7 @@ version: 0.0
 os: linux
 files:
   - source: /
-    destination: /home/ubuntu/Webpage
+    destination: /home/ubuntu/WMS_LogixPro
 hooks:
   BeforeInstall:
     - location: scripts/before_install.sh
