@@ -7,11 +7,23 @@
   justify-content: center;
   padding: 20px;
   color: black;
+  fill-opacity: 90%;
   flex: 1;
   min-width: 500px;
+  overflow-y: scroll;
 }
 .orderdetailinfo {
   display: flex;
   justify-content: space-between;
   margin: 8px;
+  font-size: 18px;
+}
+.orderinfo {
+  display: flex;
+  flex-direction: column;
+  justify-content: left;
+  margin: 8px;
+}
+.p {
+  font-size: 18px;
 }

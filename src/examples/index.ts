@@ -1,7 +1,7 @@
 import { ProductItem } from "@/types/products";
 import { OrderDetails } from "@/types/order";
 export const products = (total: number): ProductItem[] =>
-  new Array(total + 2).fill(0).map((item, index) => ({
+  new Array(total + 20).fill(0).map((item, index) => ({
     id: index,
     quantity: Math.floor(Math.random() * 100),
     name: "Taladro " + index,
