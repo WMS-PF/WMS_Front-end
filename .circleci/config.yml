@@ -22,10 +22,6 @@ jobs:
               --file-exists-behavior OVERWRITE \
               --deployment-config-name CodeDeployDefault.OneAtATime \
               --github-location repository=WMS-PF/WMS_LogixPro,commitId=$COMMIT_ID
-      - persist_to_workspace:
-          root: .
-          paths:
-            - .
   codeDeploy2:
       executor: aws-cli/default
       steps:
@@ -41,10 +37,6 @@ jobs:
               --file-exists-behavior OVERWRITE \
               --deployment-config-name CodeDeployDefault.OneAtATime \
               --github-location repository=WMS-PF/WMS_LogixPro,commitId=$COMMIT_ID
-        - persist_to_workspace:
-            root: .
-            paths:
-            - .
   codeDeploy3:
       executor: aws-cli/default
       steps:
@@ -60,10 +52,6 @@ jobs:
               --file-exists-behavior OVERWRITE \
               --deployment-config-name CodeDeployDefault.OneAtATime \
               --github-location repository=WMS-PF/WMS_LogixPro,commitId=$COMMIT_ID
-        - persist_to_workspace:
-            root: .
-            paths:
-            - .
   codeDeploy4:
       executor: aws-cli/default
       steps:
@@ -79,10 +67,6 @@ jobs:
               --file-exists-behavior OVERWRITE \
               --deployment-config-name CodeDeployDefault.OneAtATime \
               --github-location repository=WMS-PF/WMS_LogixPro,commitId=$COMMIT_ID
-        - persist_to_workspace:
-            root: .
-            paths:
-            - .
     
 
 workflows:
