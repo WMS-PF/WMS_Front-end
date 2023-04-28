@@ -1,7 +1,9 @@
 import { Sequelize } from 'sequelize-typescript';
 import { Product } from './models/Product.model';
 import { UniqueProduct } from './models/UniqueProduct.model';
+import { OrdenesIngreso } from './models/OrdenesIngreso.model';
 import { Op } from 'sequelize';
+import { OrdenesDespacho } from './models/OrdenesDespacho.model';
 require("dotenv").config();
 
 //Initialize Sequelize Instance With defined modules
@@ -11,7 +13,7 @@ export const sequelize = new Sequelize({
     username: process.env.USUARIO,
     password: process.env.PASSWORD,
     host: process.env.HOST,
-    models: [Product, UniqueProduct] //Table Models
+    models: [Product, UniqueProduct,OrdenesIngreso,OrdenesDespacho] //Table Models
     
   });
 
@@ -41,3 +43,13 @@ export async function postUInfo(
         Date: date
     });
 }   
+export async function getOrderIn() {
+  const object = await OrdenesIngreso.findOne({
+    where: { Status: 1}
+  });
+  return object;
+}  
+export async function getAllOrderIn() {
+  const object = await OrdenesIngreso.findAll();
+  return object;
+}    
