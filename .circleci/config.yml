@@ -6,44 +6,36 @@ orbs:
   
 
 jobs:
-  beforeDeploy:
+  s3Deploy:
     executor: aws-cli/default
     steps:
       - checkout
       - aws-cli/setup:
           profile-name: ubuntu
-      - run: npm install && npx next build
+      - run: zip -r WMS_LogixPro.zip . && aws s3 cp WMS_LogixPro.zip s3://logixpro-wms
       - persist_to_workspace:
           root: .
           paths:
             - .
-  s3Deploy:
-    machine:
-        image: ubuntu-2204:2023.04.2
-    steps:
-      - attach_workspace:
-          at: .
-      - checkout
-      - run: zip -r WMS_LogixPro.zip . && aws s3 cp WMS_LogixPro.zip s3://logixpro-wms
   codeDeploy:
     machine:
         image: ubuntu-2204:2023.04.2
     steps:
+      - checkout
       - aws-code-deploy/deploy:
-          application-name: myApplication
+          application-name: s3_circleci
           auth:
             - aws-cli/setup
-          bundle-bucket: myApplicationS3Bucket
-          bundle-key: myS3BucketKey
-          deployment-group: myDeploymentGroup
-          service-role-arn: myDeploymentGroupRoleARN
+          bundle-bucket: logixpro-wms
+          bundle-key: WMS_LogixPro.zip
+          deployment-group: s3_circleci_group
 
     
 
 workflows:
   EC2-Deploy:
     jobs:
-      - beforeDeploy
-      - s3Deploy:
+      - s3Deploy
+      - codeDeploy:
           requires:
-            - beforeDeploy
+            - s3Deploy
