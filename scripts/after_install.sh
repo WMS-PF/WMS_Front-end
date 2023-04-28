@@ -1,3 +1,3 @@
 #!/bin/bash
-cd /home/ubuntu/WMS_Front-end
-sudo nohup node ???? > /dev/null 2>&1 &
+cd /home/ubuntu/WMS_LogixPro
+PORT=80 npx next start > log.txt &
