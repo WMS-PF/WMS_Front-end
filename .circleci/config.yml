@@ -24,9 +24,8 @@ jobs:
       executor: aws-cli/default
       steps:
         - checkout
-        - aws-cli/setup:
-           profile-name: andresF
-        - run: 
+        - run:
+            sudo apt-get update && sudo apt-get install -y awscli
             aws configure set aws_access_key_id $AWS_ACCESS_KEY_ID_1
             aws configure set aws_secret_access_key $AWS_SECRET_ACCESS_KEY_1
         - run: |
