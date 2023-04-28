@@ -12,7 +12,7 @@ jobs:
       - checkout
       - aws-cli/setup:
           profile-name: ubuntu
-      - run: cd /home/ubuntu/WMS_LogixPro && sudo pkill-f "next start"
+      - run: cd home/ubuntu/WMS_LogixPro && sudo pkill-f "next start"
       - persist_to_workspace:
           root: .
           paths:
@@ -22,7 +22,7 @@ jobs:
         image: ubuntu-2204:2023.04.2
     steps:
       - checkout
-      - run: cd /home/ubuntu/WMS_LogixPro && npm install && npx next build
+      - run: cd home/ubuntu/WMS_LogixPro && npm install && npx next build
   Deploy:
     machine:
         image: ubuntu-2204:2023.04.2
