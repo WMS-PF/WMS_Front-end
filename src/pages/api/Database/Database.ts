@@ -48,4 +48,8 @@ export async function getOrderIn() {
     where: { Status: 1}
   });
   return object;
-}   
+}  
+export async function getAllOrderIn() {
+  const object = await OrdenesIngreso.findAll();
+  return object;
+}    
