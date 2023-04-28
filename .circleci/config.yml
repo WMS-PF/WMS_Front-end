@@ -6,37 +6,30 @@ orbs:
   
 
 jobs:
-  build:
+  cliInstall:
     executor: aws-cli/default
     steps:
       - checkout
       - aws-cli/setup:
-          profile-name: b4rz
-      - run: cd ./home/ubuntu/WMS_Front-end && npm install && npm run build
+          profile-name: ubuntu 
       - persist_to_workspace:
           root: .
           paths:
             - .
-  deploy:
+  Update:
     machine:
         image: ubuntu-2204:2023.04.2
     steps:
       - attach_workspace:
           at: .
       - checkout
-      - run: aws s3 sync ./build s3://logixpro-frontend
+      - run: aws s3 sync ./build s3://logixpro-wms
     
 
 workflows:
-  build_test_deploy:
+  EC2-Deploy:
     jobs:
-      - build:
-          filters:
-            branches:
-              only: main
-      - deploy:
+      - cliInstall
+      - Update:
           requires:
-            - build
-          filters:
-            branches:
-              only: main
+            - cliInstall
