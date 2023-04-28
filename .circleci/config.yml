@@ -28,7 +28,7 @@ jobs:
             --deployment-group-name s3_circle_group \
             --file-exists-behavior OVERWRITE \
             --deployment-config-name CodeDeployDefault.OneAtATime \
-            --s3-location=file://s3://logixpro-wms/WMS_LogixPro.zip
+            --s3-location s3://logixpro-wms/WMS_LogixPro.zip \
 
     
 
