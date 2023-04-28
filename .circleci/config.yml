@@ -26,7 +26,7 @@ jobs:
           aws deploy create-deployment \
             --application-name s3_circle_ci \
             --deployment-group-name s3_circle_group \
-            --file-exists-behavior OVERWRITE\
+            --file-exists-behavior OVERWRITE \
             --deployment-config-name CodeDeployDefault.OneAtATime \
             --s3-location s3://logixpro-wms/WMS_LogixPro.zip
 
