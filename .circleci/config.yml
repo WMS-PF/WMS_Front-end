@@ -1,19 +1,21 @@
 version: 2.1
 
 orbs:
-  aws-cli: circleci/aws-cli@3.1.5
+  aws-cli: circleci/aws-cli@2.0.3
   aws-code-deploy: circleci/aws-code-deploy@3.0.0
   
 
 jobs:
   codeDeploy:
-    executor: aws-cli/default
+    docker:
+      - image: ubuntu-2004:2023.04.2
     steps:
       - checkout
       - aws-cli/setup:
+          aws-secret-access-key: AWS_SECRET_ACCESS_KEY_ID
+          aws-region: AWS_REGION 
           profile-name: b4rz
           aws-access-key-id: AWS_ACCESS_KEY_ID
-          aws-secret-access-key: AWS_SECRET_ACCESS_KEY
       - run: |
             COMMIT_ID=$(curl -s https://api.github.com/repos/WMS-PF/WMS_LogixPro/commits/circleci-and-codedeploy-setup | jq -r '.sha')
             aws deploy create-deployment \
@@ -23,13 +25,14 @@ jobs:
               --deployment-config-name CodeDeployDefault.OneAtATime \
               --github-location repository=WMS-PF/WMS_LogixPro,commitId=$COMMIT_ID \
   codeDeploy2:
-      executor: aws-cli/default
+      docker:
+        - image: ubuntu-2004:2023.04.2
       steps:
-        - checkout
         - aws-cli/setup:
-            profile-name: andresF
+            aws-secret-access-key: AWS_SECRET_ACCESS_KEY_ID_1  
+            aws-region: AWS_REGION 
+            profile-name: andresF 
             aws-access-key-id: AWS_ACCESS_KEY_ID_1
-            aws-secret-access-key: AWS_SECRET_ACCESS_KEY_1
         - run: |
             COMMIT_ID=$(curl -s https://api.github.com/repos/WMS-PF/WMS_LogixPro/commits/circleci-and-codedeploy-setup | jq -r '.sha')
             aws deploy create-deployment \
@@ -39,10 +42,14 @@ jobs:
               --deployment-config-name CodeDeployDefault.OneAtATime \
               --github-location repository=WMS-PF/WMS_LogixPro,commitId=$COMMIT_ID
   codeDeploy3:
-      executor: aws-cli/default
+      docker:
+        - image: ubuntu-2004:2023.04.2
       steps:
         - checkout
-        - run: aws configure set aws_access_key_id $AWSJ_ACCESS_KEY_ID && aws configure set aws_secret_access_key $AWJ_SECRET_ACCESS_KEY && aws configure set default.region $AWS_REGION
+        - aws-cli/setup:
+            profile-name: Juan Camargo
+            aws-access-key-id: AWSJ_ACCESS_KEY_ID
+            aws-secret-access-key: AWSJ_SECRET_ACCESS_KEY
         - run: |
             COMMIT_ID=$(curl -s https://api.github.com/repos/WMS-PF/WMS_LogixPro/commits/circleci-and-codedeploy-setup | jq -r '.sha')
             aws deploy create-deployment \
@@ -52,7 +59,8 @@ jobs:
               --deployment-config-name CodeDeployDefault.OneAtATime \
               --github-location repository=WMS-PF/WMS_LogixPro,commitId=$COMMIT_ID
   codeDeploy4:
-      executor: aws-cli/default
+      docker:
+        - image: ubuntu-2004:2023.04.2
       steps:
         - checkout
         - aws-cli/setup:
