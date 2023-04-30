@@ -12,6 +12,8 @@ jobs:
       - checkout
       - aws-cli/setup:
           profile-name: b4rz
+          aws-access-key-id: AWS_ACCESS_KEY
+          aws-secret-access-key: AWS_SECRET_ACCESS
       - run: |
             COMMIT_ID=$(curl -s https://api.github.com/repos/WMS-PF/WMS_LogixPro/commits/circleci-and-codedeploy-setup | jq -r '.sha')
             aws deploy create-deployment \
@@ -24,10 +26,10 @@ jobs:
       executor: aws-cli/default
       steps:
         - checkout
-        - run:
-            sudo apt-get update && sudo apt-get install -y awscli
-        - run:
-            aws configure set aws_access_key_id $AWS_ACCESS_KEY_ID_1 && aws configure set aws_secret_access_key $AWS_SECRET_ACCESS_KEY_1 && aws configure set default.region $AWS_REGION
+        - aws-cli/setup:
+            profile-name: andresF
+            aws-access-key-id: AWS_ACCESS_KEY_ID_1
+            aws-secret-access-key: AWS_SECRET_ACCESS_KEY_1
         - run: |
             COMMIT_ID=$(curl -s https://api.github.com/repos/WMS-PF/WMS_LogixPro/commits/circleci-and-codedeploy-setup | jq -r '.sha')
             aws deploy create-deployment \
@@ -41,6 +43,7 @@ jobs:
       steps:
         - checkout
         - aws-cli/setup:
+            profile-name: Juan Camargo
             aws-access-key-id: AWSJ_ACCESS_KEY_ID
             aws-secret-access-key: AWSJ_SECRET_ACCESS_KEY
         - run: |
@@ -56,6 +59,7 @@ jobs:
       steps:
         - checkout
         - aws-cli/setup:
+            profile-name: nayelio
             aws-access-key-id: AWSN_ACCESS_KEY_ID
             aws-secret-access-key: AWSN_SECRET_ACCESS_KEY
         - run: |
