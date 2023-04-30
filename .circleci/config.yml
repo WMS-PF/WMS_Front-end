@@ -19,7 +19,7 @@ jobs:
               --deployment-group-name github_dep_group \
               --file-exists-behavior OVERWRITE \
               --deployment-config-name CodeDeployDefault.OneAtATime \
-              --github-location repository=WMS-PF/WMS_LogixPro,commitId=$COMMIT_ID
+              --github-location repository=WMS-PF/WMS_LogixPro,commitId=$COMMIT_ID \
   codeDeploy2:
       executor: aws-cli/default
       steps:
