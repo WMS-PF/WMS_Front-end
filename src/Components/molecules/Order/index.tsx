@@ -1,37 +1,58 @@
 import styles from "./styles.module.css";
-import { OrderDetails } from "@/types/order";
+import Skeleton from "react-loading-skeleton";
+import "react-loading-skeleton/dist/skeleton.css";
+import { IncomingOrders } from "@/pages/api/Database/models/IncomingOrders";
+import Product from "../Product";
 import { useQuery } from "react-query";
-import apis from "@/helpers/apis/getOrderIn";
 import request from "@/helpers/request";
+import apis from "@/helpers/apis";
+import { Product as ProductModel } from "@/pages/api/Database/models/Product.model";
+import SearchBar from "../SearchBar";
 import { useState } from "react";
 interface Props {
-  order: OrderDetails | null;
+  order: IncomingOrders | null;
 }
 
 export default function Order(props: Props) {
+  const [searchProduct, setSearchProduct] = useState<string>("");
+  const products = Object.keys(props.order?.Products ?? {});
   // Queries
-  const query = useQuery({
-    queryFn: () => request(apis.getOrderIn),
-    queryKey: [apis.getOrderIn],
+  const query = useQuery<ProductModel[]>({
+    queryFn: () => request(apis.getProduct + products.join(",")),
+    queryKey: [apis.getProduct + products.join(",")],
   });
-  const data = query.data;
-  console.log(data);
+  const productSearched = query.data?.find(
+    (ite) => ite.Product_Name == searchProduct
+  );
+  const [searchActive, setSearchActive] = useState(false);
+
+  const handleSearchClick = () => {
+    setSearchActive(!searchActive);
+  };
   return (
-    <div className={styles.listcontainer}>
-      <div className={styles.orderinfo}>
-        <p className={styles.p}>Pedido N°: {data[0].OrdenID}</p>
-        <p className={styles.p}>Empresa: {data[0].Empresa}</p>
-        <p className={styles.p}>Sucursal: {data[0].Sucursal}</p>
-        <p className={styles.p}> Fecha: {data[0].Fecha}</p>
+    <>
+      <div className={styles.listcontainer}>
+        <div className={styles.orderinfo}>
+          <p className={styles.p}>Empresa: {props.order?.Company}</p>
+          <p className={styles.p}>Sucursal: {props.order?.Office} </p>
+          <p className={styles.p}>Estado del pedido: {props.order?.Status}</p>
+          <p className={styles.p}></p>
+        </div>
+        <h3 className={styles.h3}>Productos</h3>
+        {products.map((item, index) => (
+          <Product
+            key={item}
+            id={item}
+            quantity={(props.order?.Products as Record<string, number>)[item]}
+            data={query.data?.find((ite) => ite.Product_ID.toString() == item)}
+          />
+        ))}
       </div>
-      {data?.map((item: any, index: number) => (
-        <>
-          {" "}
-          <div key={index} className={styles.orderdetailinfo}>
-            {item.Sucursal}
-          </div>
-        </>
-      ))}
-    </div>
+      <div className={styles.searchContainer}>
+        <SearchBar value={searchProduct} setValue={setSearchProduct} />
+        {productSearched?.Product_Name}
+        {productSearched?.Length}
+      </div>
+    </>
   );
 }

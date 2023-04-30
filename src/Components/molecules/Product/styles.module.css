@@ -1,0 +1,6 @@
+.orderdetailinfo {
+  display: flex;
+  justify-content: space-between;
+  padding: 8px;
+  font-size: 18px;
+}

@@ -1,19 +1,18 @@
 .orderscontainer {
   background-color: #d9d9d9;
-  display: grid;
-  place-content: center;
   border-radius: 16px;
   margin-block: 20px;
-  padding-bottom: 15px;
-  width: fit-content;
-  padding-inline: 20px;
+  width: 300px;
+  padding-inline: 15px;
   flex: 1;
+  padding-block: 15px;
+  overflow: auto;
 }
 .order {
-  width: 246px;
+  width: 100%;
   background-color: aliceblue;
   color: black;
-  margin-top: 15px;
+  margin-bottom: 10px;
   border-radius: 16px;
   padding: 10px;
   padding-inline: 20px;

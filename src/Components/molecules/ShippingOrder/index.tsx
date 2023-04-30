@@ -1,15 +1,18 @@
 import styles from "./styles.module.css";
 import { AiOutlineSearch } from "react-icons/ai";
-import Link from "next/link";
-
-import React, { useState, useEffect } from "react";
 import { useQuery } from "react-query";
-import apis from "@/helpers/apis/getOrderIn";
+import apis from "@/helpers/apis";
 import request from "@/helpers/request";
-
-export default function ShippingOrder() {
+import { useState } from "react";
+import { IncomingOrders } from "@/pages/api/Database/models/IncomingOrders";
+import Skeleton from "react-loading-skeleton";
+import "react-loading-skeleton/dist/skeleton.css";
+interface Props {
+  onChangeOrder: (order: IncomingOrders) => void;
+}
+export default function IncomeOrder(props: Props) {
   // Queries
-  const query = useQuery({
+  const query = useQuery<IncomingOrders[]>({
     queryFn: () => request(apis.getOrderIn),
     queryKey: [apis.getOrderIn],
   });
@@ -23,13 +26,13 @@ export default function ShippingOrder() {
   return (
     <>
       <div className={styles.searchContainer}>
-        Ordenes de despacho
+        Ordenes de ingreso
         <i className={styles.fafasearch} onClick={handleSearchClick}>
           <AiOutlineSearch />
         </i>
         {searchActive && (
           <input
-            type="number"
+            type="text"
             placeholder="Search"
             className={styles.searchbar}
             onChange={(e) => console.log(e.target.value)}
@@ -37,12 +40,20 @@ export default function ShippingOrder() {
         )}
       </div>
       <div className={styles.orderscontainer}>
-        {data?.map((item: any, index: number) => (
-          <div key={index} className={styles.order}>
-            N°{item.OrdenID} <br></br> {index == 0 ? "Nuevo - " : null}
-            {item.Status}
-          </div>
-        ))}
+        {query.isFetching ? (
+          <Skeleton count={3} className={styles.order} />
+        ) : (
+          data?.map((item, index) => (
+            <div
+              key={index}
+              className={styles.order}
+              onClick={() => props.onChangeOrder(item)}
+            >
+              N°{item.OrderID} <br></br> {index == 0 ? "Nuevo - " : null}
+              {item.Status}
+            </div>
+          ))
+        )}
       </div>
     </>
   );

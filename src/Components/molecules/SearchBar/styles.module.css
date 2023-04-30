@@ -1,5 +1,5 @@
 .searchbar {
-  width: 400px;
+  width: 250px;
   background-color: #d9d9d9;
   height: 40px;
   border-radius: 16px;
@@ -10,5 +10,6 @@
   gap: 36px;
   opacity: 50%;
   color: black;
-  align-self: flex-end;
+  align-self: center;
+  background-color: yellow;
 }
