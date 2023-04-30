@@ -7,25 +7,25 @@ import { Table, Column, Model, PrimaryKey, DataType} from 'sequelize-typescript'
     updatedAt: false,
     paranoid: false,
     deletedAt: false,
-    modelName: 'OrdenesDespacho',
+    modelName: 'OutgoingOrders',
     freezeTableName: true
 })
 //define Model of the table and the columns
-export class OrdenesDespacho extends Model {
+export class OutgoingOrders extends Model {
 
    
   @PrimaryKey
   @Column
-  OrdenID!: number;
+  OrderID!: number;
 
   @Column
-  Empresa!: string;
+  Company!: string;
 
   @Column
-  Sucursal!: number;
+  Office!: number;
 
   @Column
-  Fecha!: Date;
+  Date!: Date;
 
   @Column(DataType.JSONB)
   Products!: object;

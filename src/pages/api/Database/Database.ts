@@ -1,9 +1,9 @@
 import { Sequelize } from "sequelize-typescript";
 import { Product } from "./models/Product.model";
 import { UniqueProduct } from "./models/UniqueProduct.model";
-import { OrdenesIngreso } from "./models/OrdenesIngreso.model";
+import { IncomingOrders } from "./models/IncomingOrders";
 import { Op } from "sequelize";
-import { OrdenesDespacho } from "./models/OrdenesDespacho.model";
+import { OutgoingOrders } from "./models/OutgoingOrders";
 require("dotenv").config();
 
 //Initialize Sequelize Instance With defined modules
@@ -13,11 +13,11 @@ export const sequelize = new Sequelize({
   username: process.env.USUARIO,
   password: process.env.PASSWORD,
   host: process.env.HOST,
-  models: [Product, UniqueProduct, OrdenesIngreso, OrdenesDespacho], //Table Models
+  models: [Product, UniqueProduct, IncomingOrders, OutgoingOrders], //Table Models
 });
 
 //GET info about product with the productID
-export async function getInfo(ID: string | string[] | undefined) {
+export async function getProduct(ID: string) {
   const object = await Product.findAll({
     where: {
       Product_ID: {
@@ -27,7 +27,21 @@ export async function getInfo(ID: string | string[] | undefined) {
   });
   return object;
 }
-
+export async function getAllProducts() {
+  const object = await Product.findAll({
+  });
+  return object;
+}
+export async function getSomeProducts(ID: string[]) {
+  const object = await Product.findAll({
+    where: {
+      Product_ID: {
+        [Op.or]: ID,
+      },
+    },
+  });
+  return object;
+}
 //GET info about product with the productID
 export async function postUInfo(
   ID: string | string[] | undefined,
@@ -43,12 +57,12 @@ export async function postUInfo(
   });
 }
 export async function getOrderIn() {
-  const object = await OrdenesIngreso.findOne({
+  const object = await IncomingOrders.findOne({
     where: { Status: 1 },
   });
   return object;
 }
 export async function getAllOrderIn() {
-  const object = await OrdenesIngreso.findAll();
+  const object = await IncomingOrders.findAll();
   return object;
 }
