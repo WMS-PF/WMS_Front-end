@@ -7,8 +7,8 @@ orbs:
 
 jobs:
   codeDeploy:
-    docker:
-      - image: ubuntu-2004:2023.04.2
+    machine:
+      image: ubuntu-2204:2023.04.2
     steps:
       - checkout
       - aws-cli/setup:
@@ -25,8 +25,8 @@ jobs:
               --deployment-config-name CodeDeployDefault.OneAtATime \
               --github-location repository=WMS-PF/WMS_LogixPro,commitId=$COMMIT_ID \
   codeDeploy2:
-      docker:
-        - image: ubuntu-2004:2023.04.2
+      machine:
+        image: ubuntu-2204:2023.04.2
       steps:
         - aws-cli/setup:
             aws-secret-access-key: AWS_SECRET_ACCESS_KEY_ID_1  
@@ -42,8 +42,8 @@ jobs:
               --deployment-config-name CodeDeployDefault.OneAtATime \
               --github-location repository=WMS-PF/WMS_LogixPro,commitId=$COMMIT_ID
   codeDeploy3:
-      docker:
-        - image: ubuntu-2004:2023.04.2
+      machine:
+        image: ubuntu-2204:2023.04.2
       steps:
         - checkout
         - aws-cli/setup:
@@ -59,8 +59,8 @@ jobs:
               --deployment-config-name CodeDeployDefault.OneAtATime \
               --github-location repository=WMS-PF/WMS_LogixPro,commitId=$COMMIT_ID
   codeDeploy4:
-      docker:
-        - image: ubuntu-2004:2023.04.2
+      machine:
+        image: ubuntu-2204:2023.04.2
       steps:
         - checkout
         - aws-cli/setup:
