@@ -42,10 +42,7 @@ jobs:
       executor: aws-cli/default
       steps:
         - checkout
-        - aws-cli/setup:
-            profile-name: Juan Camargo
-            aws-access-key-id: AWSJ_ACCESS_KEY_ID
-            aws-secret-access-key: AWSJ_SECRET_ACCESS_KEY
+        - run: aws configure set aws_access_key_id $AWSJ_ACCESS_KEY_ID && aws configure set aws_secret_access_key $AWJ_SECRET_ACCESS_KEY && aws configure set default.region $AWS_REGION
         - run: |
             COMMIT_ID=$(curl -s https://api.github.com/repos/WMS-PF/WMS_LogixPro/commits/circleci-and-codedeploy-setup | jq -r '.sha')
             aws deploy create-deployment \
