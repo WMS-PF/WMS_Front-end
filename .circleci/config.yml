@@ -72,12 +72,6 @@ workflows:
   EC2-Deploy:
     jobs:
       - codeDeploy
-      - codeDeploy2:
-          requires:
-            - codeDeploy
-      - codeDeploy3:
-          requires:
-            - codeDeploy2
-      - codeDeploy4:
-          requires:
-            - codeDeploy3
+      - codeDeploy2
+      - codeDeploy3
+      - codeDeploy4
