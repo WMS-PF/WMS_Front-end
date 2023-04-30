@@ -1,12 +1,10 @@
-import { ProductItem } from "../products";
-
-export interface OrderItem {
-  id: number;
-  state: string;
-  date: string;
-}
-export interface OrderDetails extends OrderItem {
-  business: string;
-  products: ProductItem[];
-  store: string;
+export interface OrderDetails {
+  index: [
+    Empresa: string,
+    OrdenId: number,
+    Sucursal: number,
+    Fecha: Date,
+    Products: object,
+    Status: number
+  ];
 }
