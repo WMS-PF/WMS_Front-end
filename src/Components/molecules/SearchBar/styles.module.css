@@ -1,15 +1,18 @@
 .searchbar {
-  width: 250px;
+  width: 100%;
   background-color: #d9d9d9;
-  height: 40px;
-  border-radius: 16px;
+  height: 60px;
+  border-radius: 10px;
   align-items: center;
   padding-inline: 20px;
   display: flex;
   flex-direction: row;
   gap: 36px;
-  opacity: 50%;
-  color: black;
-  align-self: center;
-  background-color: yellow;
+  color: white;
+  border-width: 0;
+  align-self: flex-end;
+  background-color: #274c77;
+}
+.searchbar::placeholder {
+  color: white;
 }

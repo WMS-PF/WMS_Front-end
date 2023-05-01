@@ -9,6 +9,7 @@ import { OrderDetails } from "@/types/order";
 import ShippingOrder from "@/Components/molecules/ShippingOrder";
 import IncomeOrder from "@/Components/molecules/IncomeOrder";
 import { IncomingOrders } from "../api/Database/models/IncomingOrders";
+import Menu from "@/Components/molecules/Menu";
 
 export default function Home() {
   const [order, setOrder] = useState<null | IncomingOrders>(null);
@@ -18,7 +19,6 @@ export default function Home() {
       <Head>
         <title>WMS LogixPro - Home</title>
       </Head>
-
       <main className={styles.main}>
         <div className={styles.dashboard}>
           <div className={styles.orderinformationcontainer}>
@@ -26,8 +26,8 @@ export default function Home() {
               <IncomeOrder onChangeOrder={(order) => setOrder(order)} />
               <ShippingOrder onChangeOrder={(order) => setOrder(order)} />
             </div>
-            <Order order={order} />
           </div>
+          <Order order={order} />
         </div>
       </main>
     </>

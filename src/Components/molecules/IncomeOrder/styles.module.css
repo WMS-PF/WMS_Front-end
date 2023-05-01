@@ -1,12 +1,12 @@
 .orderscontainer {
-  background-color: #d9d9d9;
+  background-color: #274c77;
   border-radius: 16px;
-  margin-block: 20px;
+  margin-block-end: 20px;
   width: 300px;
   padding-inline: 15px;
   flex: 1;
   padding-block: 15px;
-  overflow: auto;
+  overflow-y: overlay;
 }
 .order {
   width: 100%;
@@ -20,6 +20,7 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
+  cursor: pointer;
 }
 .searchContainer {
   font-size: 18px;
@@ -27,9 +28,11 @@
   font-weight: bold;
   display: flex;
   flex-direction: row;
-  width: 283px;
+  width: 264px;
   justify-content: space-between;
   position: relative;
+  padding-block: 15px;
+  color: white;
 }
 .fafasearch {
   cursor: pointer;
@@ -43,4 +46,31 @@
   border-radius: 6px;
   padding-inline: 12px;
   color: black;
+}
+/* Estilos para motores Webkit y blink (Chrome, Safari, Opera... )*/
+
+.orderscontainer::-webkit-scrollbar {
+  -webkit-appearance: none;
+}
+
+.orderscontainer::-webkit-scrollbar:vertical {
+  width: 10px;
+}
+
+.orderscontainer::-webkit-scrollbar-button:increment,
+.orderscontainer::-webkit-scrollbar-button {
+  display: none;
+}
+
+.orderscontainer::-webkit-scrollbar:horizontal {
+  height: 8px;
+}
+
+.orderscontainer::-webkit-scrollbar-thumb {
+  background-color: #797979;
+  border-radius: 16px;
+}
+
+.orderscontainer::-webkit-scrollbar-track {
+  border-radius: 10px;
 }

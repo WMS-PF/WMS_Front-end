@@ -23,34 +23,36 @@ export default function IncomeOrder(props: Props) {
   const handleSearchClick = () => {
     setSearchActive(!searchActive);
   };
+  const visibleResults = data?.slice(0, 3);
   return (
     <>
-      <div className={styles.searchContainer}>
-        Ordenes de ingreso
-        <i className={styles.fafasearch} onClick={handleSearchClick}>
-          <AiOutlineSearch />
-        </i>
-        {searchActive && (
-          <input
-            type="text"
-            placeholder="Search"
-            className={styles.searchbar}
-            onChange={(e) => console.log(e.target.value)}
-          />
-        )}
-      </div>
       <div className={styles.orderscontainer}>
+        <div className={styles.searchContainer}>
+          Ordenes de despacho
+          <i className={styles.fafasearch} onClick={handleSearchClick}>
+            <AiOutlineSearch />
+          </i>
+          {searchActive && (
+            <input
+              type="text"
+              placeholder="Search"
+              className={styles.searchbar}
+              onChange={(e) => console.log(e.target.value)}
+            />
+          )}
+        </div>
+
         {query.isFetching ? (
           <Skeleton count={3} className={styles.order} />
         ) : (
-          data?.map((item, index) => (
+          visibleResults?.map((item, index) => (
             <div
               key={index}
               className={styles.order}
               onClick={() => props.onChangeOrder(item)}
             >
               N°{item.OrderID} <br></br> {index == 0 ? "Nuevo - " : null}
-              {item.Status}
+              {item.Status == 1 ? "Abierto" : null}
             </div>
           ))
         )}
