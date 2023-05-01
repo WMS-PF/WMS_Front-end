@@ -7,7 +7,7 @@ export default async function handler(
   ) {
     if (req.method === 'GET') {
       try {
-        var order = await getOrderIn();
+        let order = await getOrderIn();
         res.status(200).json(order);
     } catch (error) {
       console.error(error);

@@ -4,6 +4,7 @@ import { UniqueProduct } from "./models/UniqueProduct.model";
 import { IncomingOrders } from "./models/IncomingOrders";
 import { Op } from "sequelize";
 import { OutgoingOrders } from "./models/OutgoingOrders";
+import { Availability } from "./models/Availability";
 require("dotenv").config();
 
 //Initialize Sequelize Instance With defined modules
@@ -13,7 +14,7 @@ export const sequelize = new Sequelize({
   username: process.env.USUARIO,
   password: process.env.PASSWORD,
   host: process.env.HOST,
-  models: [Product, UniqueProduct, IncomingOrders, OutgoingOrders], //Table Models
+  models: [Product, UniqueProduct, IncomingOrders, OutgoingOrders, Availability], //Table Models
 });
 
 //GET info about product with the productID
@@ -56,13 +57,34 @@ export async function postUInfo(
     Date: date,
   });
 }
+
 export async function getOrderIn() {
   const object = await IncomingOrders.findOne({
     where: { Status: 1 },
   });
   return object;
 }
+
 export async function getAllOrderIn() {
   const object = await IncomingOrders.findAll();
+  return object;
+}
+
+export async function getAvailability() {
+  const object = await Availability.findAll({
+    attributes: ['Product_Name', 'Product_ID', 'count']
+  });
+  return object;
+}
+
+export async function getOrderOut() {
+  const object = await OutgoingOrders.findOne({
+    where: { Status: 0 },
+  });
+  return object;
+}
+
+export async function getAllOrderOut() {
+  const object = await OutgoingOrders.findAll();
   return object;
 }

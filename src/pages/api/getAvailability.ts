@@ -1,4 +1,4 @@
-import { getAllOrderIn } from "./Database/Database";
+import { getAvailability } from "./Database/Database";
 import { NextApiRequest, NextApiResponse } from "next";
 
 export default async function handler(
@@ -7,7 +7,7 @@ export default async function handler(
 ) {
   if (req.method === "GET") {
     try {
-      let order = await getAllOrderIn();
+      let order = await getAvailability();
       res.status(200).json(order);
     } catch (error) {
       console.error(error);
