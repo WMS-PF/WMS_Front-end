@@ -10,10 +10,11 @@ import ShippingOrder from "@/Components/molecules/ShippingOrder";
 import IncomeOrder from "@/Components/molecules/IncomeOrder";
 import { IncomingOrders } from "../api/Database/models/IncomingOrders";
 import Menu from "@/Components/molecules/Menu";
+import { Availability } from "../api/Database/models/Availability";
 
 export default function Home() {
   const [order, setOrder] = useState<null | IncomingOrders>(null);
-
+  const [orderOut, setOrderOut] = useState<null | Availability>(null);
   return (
     <>
       <Head>
@@ -27,7 +28,7 @@ export default function Home() {
               <ShippingOrder onChangeOrder={(order) => setOrder(order)} />
             </div>
           </div>
-          <Order order={order} />
+          <Order order={order} orderOut={orderOut} />
         </div>
       </main>
     </>

@@ -11,23 +11,33 @@ import SearchBar from "../SearchBar";
 import { useState } from "react";
 import { MdStore } from "react-icons/md";
 import { BiTaskX, BiTask } from "react-icons/bi";
+import { Availability } from "@/pages/api/Database/models/Availability";
 
 interface Props {
   order: IncomingOrders | null;
+  orderOut: Availability | null;
 }
 
 export default function Order(props: Props) {
   const [searchProduct, setSearchProduct] = useState<string>("");
+  const [productQuantity, setProductQuantity] = useState(0);
   const products = Object.keys(props.order?.Products ?? {});
+
   // Queries
   const query = useQuery<ProductModel[]>({
     queryFn: () => request(apis.getProduct + products.join(",")),
     queryKey: [apis.getProduct + products.join(",")],
   });
+  const query2 = useQuery<Availability>({
+    queryFn: () => request(apis.getAvailability),
+    queryKey: [apis.getAvailability],
+  });
+
   const productSearched = query.data?.find(
     (ite) => ite.Product_Name == searchProduct
   );
-
+  const productCountSearched = query2.data;
+  console.log(productCountSearched);
   return (
     <>
       <div className={styles.listcontainer}>

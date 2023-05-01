@@ -7,14 +7,15 @@ import { useState } from "react";
 import { IncomingOrders } from "@/pages/api/Database/models/IncomingOrders";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
+import { OutgoingOrders } from "@/pages/api/Database/models/OutgoingOrders";
 interface Props {
-  onChangeOrder: (order: IncomingOrders) => void;
+  onChangeOrder: (order: OutgoingOrders) => void;
 }
-export default function IncomeOrder(props: Props) {
+export default function ShippingOrder(props: Props) {
   // Queries
-  const query = useQuery<IncomingOrders[]>({
-    queryFn: () => request(apis.getOrderIn),
-    queryKey: [apis.getOrderIn],
+  const query = useQuery<OutgoingOrders[]>({
+    queryFn: () => request(apis.getOrderOut),
+    queryKey: [apis.getOrderOut],
   });
   const data = query.data;
   // Search order by orderID
@@ -52,7 +53,7 @@ export default function IncomeOrder(props: Props) {
               onClick={() => props.onChangeOrder(item)}
             >
               N°{item.OrderID} <br></br> {index == 0 ? "Nuevo - " : null}
-              {item.Status == 1 ? "Abierto" : null}
+              {item.Status == 1 ? "Abierto" : "Cerrado"}
             </div>
           ))
         )}

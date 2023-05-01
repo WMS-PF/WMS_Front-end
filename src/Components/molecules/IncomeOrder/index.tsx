@@ -10,8 +10,6 @@ import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 interface Props {
   onChangeOrder: (order: IncomingOrders) => void;
-  value: string;
-  setValue: (value: s) => void;
 }
 export default function IncomeOrder(props: Props) {
   // Queries
@@ -42,7 +40,6 @@ export default function IncomeOrder(props: Props) {
               type="text"
               placeholder="Search"
               className={styles.searchbar}
-              value={props.value}
               onChange={(e) => console.log(e.target.value)}
             />
           )}
