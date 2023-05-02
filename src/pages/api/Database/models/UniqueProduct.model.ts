@@ -1,4 +1,4 @@
-import { Table, Column, Model, PrimaryKey, AutoIncrement, ForeignKey, BelongsTo} from 'sequelize-typescript';
+import { Table, Column, Model, PrimaryKey, AutoIncrement, ForeignKey, BelongsTo } from 'sequelize-typescript';
 import { Product } from './Product.model';
 import { OutgoingOrders } from './OutgoingOrders';
 import { IncomingOrders } from './IncomingOrders';
@@ -48,13 +48,13 @@ export class UniqueProduct extends Model {
   @Column
   OutID!: number;
 
-  @BelongsTo(() => Product)
-  product!: Product;
-
   @BelongsTo(() => OutgoingOrders)
   outgoingOrder!: OutgoingOrders;
 
   @BelongsTo(() => IncomingOrders)
   incomingOrder!: IncomingOrders;
+
+  @BelongsTo(() => Product)
+  product!: Product;
 
 }

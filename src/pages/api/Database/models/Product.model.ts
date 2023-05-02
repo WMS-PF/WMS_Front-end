@@ -1,4 +1,4 @@
-import { Table, Column, Model, PrimaryKey, HasMany } from "sequelize-typescript";
+import { Table, Column, Model, PrimaryKey, Sequelize, HasMany } from "sequelize-typescript";
 import { UniqueProduct } from "./UniqueProduct.model";
 
 //Define options of the table
@@ -12,7 +12,7 @@ import { UniqueProduct } from "./UniqueProduct.model";
 })
 //define Model of the table and the columns
 export class Product extends Model {
-
+  
   @PrimaryKey
   @Column
   Product_ID!: number;
@@ -35,6 +35,6 @@ export class Product extends Model {
   @Column
   Brand!: string;
 
-  @HasMany(() => UniqueProduct)
-  uniqueProducts!: UniqueProduct[];
+  /*@HasMany(() => UniqueProduct)
+  uniqueProducts!: UniqueProduct[];*/
 }

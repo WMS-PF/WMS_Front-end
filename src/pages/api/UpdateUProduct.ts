@@ -1,4 +1,4 @@
-import { NextApiRequest, NextApiResponse } from "next";
+/*import { NextApiRequest, NextApiResponse } from "next";
 import { sequelize } from "./Database/Database";
 import { UniqueProduct } from "./Database/models/UniqueProduct.model";
 
@@ -42,4 +42,4 @@ export default async function handler(
   } else {
     res.status(405).json({ message: "Método no permitido" });
   }
-}
+}*/
