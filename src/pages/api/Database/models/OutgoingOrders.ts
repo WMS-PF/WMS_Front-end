@@ -39,6 +39,6 @@ export class OutgoingOrders extends Model {
   uniqueProducts!: UniqueProduct[];
 
   @HasMany(() => UniqueProduct, { foreignKey: 'OutDate' })
-  uniqueProducts!: UniqueProduct[];
+  uniqueProducts2!: UniqueProduct[];
 
 }

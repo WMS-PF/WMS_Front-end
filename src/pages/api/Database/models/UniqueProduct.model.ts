@@ -1,7 +1,7 @@
-import { Table, Column, Model, PrimaryKey, AutoIncrement} from 'sequelize-typescript';
+import { Table, Column, Model, PrimaryKey, AutoIncrement, ForeignKey, BelongsTo} from 'sequelize-typescript';
 import { Product } from './Product.model';
-import { OutgoingOrders } from './OutgoingOrders.model';
-import { IncomingOrders } from './IncomingOrders.model';
+import { OutgoingOrders } from './OutgoingOrders';
+import { IncomingOrders } from './IncomingOrders';
 
 
 //Define options of the table

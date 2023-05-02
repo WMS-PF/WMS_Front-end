@@ -1,4 +1,4 @@
-import { Table, Column, Model, PrimaryKey, DataType, HasMany } from 'sequelize-typescript';
+import { Table, Column, Model, PrimaryKey, DataType, HasMany, Unique } from 'sequelize-typescript';
 import { UniqueProduct } from "./UniqueProduct.model";
 
 //Define options of the table
@@ -39,6 +39,6 @@ export class IncomingOrders extends Model {
   uniqueProducts!: UniqueProduct[];
 
   @HasMany(() => UniqueProduct, { foreignKey: 'InDate' })
-  uniqueProducts!: UniqueProduct[];
+  uniqueProducts2!: UniqueProduct[];
 
 }
