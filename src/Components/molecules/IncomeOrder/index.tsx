@@ -10,8 +10,10 @@ import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 interface Props {
   onChangeOrder: (order: IncomingOrders) => void;
+  orderSearch: IncomingOrders | null;
 }
 export default function IncomeOrder(props: Props) {
+  const [searchOrder, setSearchOrder] = useState<number>();
   // Queries
   const query = useQuery<IncomingOrders[]>({
     queryFn: () => request(apis.getOrderIn),
@@ -19,14 +21,16 @@ export default function IncomeOrder(props: Props) {
   });
   const data = query.data;
   //
+  // OrderID consults the order
+  const orderSearched = query.data?.find((ite) => ite.OrderID == searchOrder);
   const [searchActive, setSearchActive] = useState(false);
-  const [orderActive, setOrderActive] = useState(false);
 
   const handleSearchClick = () => {
     setSearchActive(!searchActive);
   };
 
   const visibleResults = data?.slice(0, 3);
+  const visibleResultToSearch = data?.slice(0, 1);
   return (
     <>
       <div className={styles.orderscontainer}>
@@ -40,25 +44,35 @@ export default function IncomeOrder(props: Props) {
               type="text"
               placeholder="Search"
               className={styles.searchbar}
-              onChange={(e) => console.log(e.target.value)}
+              value={searchOrder ? searchOrder : ""}
+              onChange={(e) => setSearchOrder(parseInt(e.target.value))}
             />
           )}
         </div>
 
-        {query.isFetching ? (
-          <Skeleton count={3} className={styles.order} />
-        ) : (
-          visibleResults?.map((item, index) => (
-            <div
-              key={index}
-              className={styles.order}
-              onClick={() => props.onChangeOrder(item)}
-            >
-              N°{item.OrderID} <br></br> {index == 0 ? "Nuevo - " : null}
-              {item.Status == 1 ? "Abierto" : null}
-            </div>
-          ))
-        )}
+        {orderSearched
+          ? visibleResultToSearch?.map((item, index) => (
+              <div
+                key={index}
+                className={styles.order}
+                onClick={() => props.onChangeOrder(item)}
+              >
+                N°{orderSearched.OrderID} <br></br>
+                <p className={styles.status}>
+                  {orderSearched.Status == 1 ? "Abierto" : "Cerrado"}
+                </p>
+              </div>
+            )) || "No result"
+          : visibleResults?.map((item, index) => (
+              <div
+                key={index}
+                className={styles.order}
+                onClick={() => props.onChangeOrder(item)}
+              >
+                N°{item.OrderID} <br></br> {index == 0 ? "Nuevo - " : null}
+                {item.Status == 1 ? "Abierto" : "Cerrado"}
+              </div>
+            ))}
       </div>
     </>
   );

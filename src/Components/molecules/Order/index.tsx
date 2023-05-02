@@ -12,15 +12,15 @@ import { useState } from "react";
 import { MdStore } from "react-icons/md";
 import { BiTaskX, BiTask } from "react-icons/bi";
 import { Availability } from "@/pages/api/Database/models/Availability";
+import Skeleton from "react-loading-skeleton";
 
 interface Props {
   order: IncomingOrders | null;
-  orderOut: Availability | null;
 }
 
 export default function Order(props: Props) {
   const [searchProduct, setSearchProduct] = useState<string>("");
-  const [productQuantity, setProductQuantity] = useState(0);
+
   const products = Object.keys(props.order?.Products ?? {});
 
   // Queries
@@ -28,16 +28,11 @@ export default function Order(props: Props) {
     queryFn: () => request(apis.getProduct + products.join(",")),
     queryKey: [apis.getProduct + products.join(",")],
   });
-  const query2 = useQuery<Availability>({
-    queryFn: () => request(apis.getAvailability),
-    queryKey: [apis.getAvailability],
-  });
 
   const productSearched = query.data?.find(
     (ite) => ite.Product_Name == searchProduct
   );
-  const productCountSearched = query2.data;
-  console.log(productCountSearched);
+
   return (
     <>
       <div className={styles.listcontainer}>
@@ -81,18 +76,35 @@ export default function Order(props: Props) {
       <div className={styles.searchContainer}>
         <SearchBar value={searchProduct} setValue={setSearchProduct} />
         <div className={styles.searchResultContainer}>
-          <h4>Detalles del producto</h4>
-          <h2>{productSearched?.Product_Name}</h2>
+          {productSearched ? (
+            <>
+              <h4>Detalles del producto</h4>
+              <h2>{productSearched?.Product_Name}</h2>
 
-          <br></br>
-          <h4>Proveedor</h4>
-          <p>Marca: {productSearched?.Brand}</p>
-          <br></br>
-          <h4>Dimensiones</h4>
-          <p>Largo: {productSearched?.Length}</p>
-          <p>Alto: {productSearched?.Height}</p>
-          <p>Ancho: {productSearched?.Width}</p>
-          <p>Peso (kg): {productSearched?.Weight}</p>
+              <br></br>
+              <h4>Proveedor</h4>
+              <p>Marca: {productSearched?.Brand}</p>
+              <br></br>
+              <h4>Dimensiones</h4>
+              <p>Largo: {productSearched?.Length}</p>
+              <p>Alto: {productSearched?.Height}</p>
+              <p>Ancho: {productSearched?.Width}</p>
+              <p>Peso (kg): {productSearched?.Weight}</p>
+            </>
+          ) : (
+            <>
+              <h4>Detalles del producto</h4>
+              <Skeleton />
+              <br></br>
+              <h4>Proveedor</h4>
+              <p>
+                Marca :<Skeleton />{" "}
+              </p>
+              <br></br>
+              <h4>Dimensiones</h4>
+              <Skeleton count={4} />
+            </>
+          )}
         </div>
       </div>
     </>
