@@ -1,8 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import { postUInfo, sequelize } from "./Database/Database";
 
-sequelize;
-
 // POST handler for unique product
 export default async function handler(
   req: NextApiRequest,

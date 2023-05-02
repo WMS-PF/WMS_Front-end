@@ -44,20 +44,6 @@ export async function getSomeProducts(ID: string[]) {
   return object;
 }
 //GET info about product with the productID
-export async function postUInfo(
-  ID: string | string[] | undefined,
-  serialID: string | string[] | undefined,
-  status: string | string[] | undefined,
-  date: string | string[] | undefined
-) {
-  const object = await UniqueProduct.create({
-    Product_ID: ID,
-    Serial_ID: serialID,
-    Status: status,
-    Date: date,
-  });
-}
-
 export async function getOrderIn() {
   const object = await IncomingOrders.findOne({
     where: { Status: 1 },
@@ -87,4 +73,17 @@ export async function getOrderOut() {
 export async function getAllOrderOut() {
   const object = await OutgoingOrders.findAll();
   return object;
+}
+
+export async function postUInfo(productID: number, serialID: number, status: number, inDate: Date, outDate: Date, inID: number, outID: number) {
+  const object = await UniqueProduct.create({
+    Product_ID: productID,
+    Serial_ID: serialID,
+    Status: status,
+    InDate: inDate,
+    OutDate: outDate,
+    InID: inID,
+    OutID: outID
+  });
+  return object
 }
