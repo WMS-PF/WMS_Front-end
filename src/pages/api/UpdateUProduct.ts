@@ -1,4 +1,4 @@
-/*import { NextApiRequest, NextApiResponse } from "next";
+import { NextApiRequest, NextApiResponse } from "next";
 import { sequelize } from "./Database/Database";
 import { UniqueProduct } from "./Database/models/UniqueProduct.model";
 
@@ -27,8 +27,8 @@ export default async function handler(
         if (productToUpdate) {
           // Actualizar el producto
           productToUpdate.Status = status;
-          //productToUpdate.OutDate = outDate;
-          //productToUpdate.OutID = outID;
+          productToUpdate.OutDate = outDate;
+          productToUpdate.OutID = outID;
 
           // Guardar los cambios en la base de datos
           await productToUpdate.save();
@@ -42,4 +42,4 @@ export default async function handler(
   } else {
     res.status(405).json({ message: "Método no permitido" });
   }
-}*/
+}
