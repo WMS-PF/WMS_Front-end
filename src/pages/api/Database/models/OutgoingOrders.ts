@@ -1,4 +1,5 @@
-import { Table, Column, Model, PrimaryKey, DataType} from 'sequelize-typescript';
+import { Table, Column, Model, PrimaryKey, DataType, Unique, HasMany } from 'sequelize-typescript';
+import { UniqueProduct } from "./UniqueProduct.model";
 
 //Define options of the table
 @Table({
@@ -24,7 +25,8 @@ export class OutgoingOrders extends Model {
   @Column
   Office!: number;
 
-  @Column
+  @Unique
+  @Column({ unique: true })
   Date!: Date;
 
   @Column(DataType.JSONB)
@@ -32,4 +34,11 @@ export class OutgoingOrders extends Model {
 
   @Column
   Status!: number;
+
+  @HasMany(() => UniqueProduct, { foreignKey: 'OutID' })
+  uniqueProducts!: UniqueProduct[];
+
+  @HasMany(() => UniqueProduct, { foreignKey: 'OutDate' })
+  uniqueProducts2!: UniqueProduct[];
+
 }
