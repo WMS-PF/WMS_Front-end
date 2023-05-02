@@ -10,7 +10,6 @@ import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 interface Props {
   onChangeOrder: (order: IncomingOrders) => void;
-  orderSearch: IncomingOrders | null;
 }
 export default function IncomeOrder(props: Props) {
   const [searchOrder, setSearchOrder] = useState<number>();

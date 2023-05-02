@@ -10,9 +10,6 @@ import "react-loading-skeleton/dist/skeleton.css";
 import { OutgoingOrders } from "@/pages/api/Database/models/OutgoingOrders";
 interface Props {
   onChangeOrder: (order: OutgoingOrders) => void;
-  orderSearch: OutgoingOrders | null;
-  value: number;
-  setValue: (value: number) => void;
 }
 export default function ShippingOrder(props: Props) {
   const [searchOrder, setSearchOrder] = useState<number>();

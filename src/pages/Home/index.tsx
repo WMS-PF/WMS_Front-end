@@ -28,7 +28,7 @@ export default function Home() {
               <ShippingOrder onChangeOrder={(order) => setOrder(order)} />
             </div>
           </div>
-          <Order order={order} orderOut={orderOut} />
+          <Order order={order} />
         </div>
       </main>
     </>
