@@ -1,4 +1,4 @@
-const base = "http://localhost:3000";
+const base = "";
 const apis = {
   getOrderIn: base + "/api/getAllOrderIn",
   getProduct: base + "/api/getProduct?ProductID=",
