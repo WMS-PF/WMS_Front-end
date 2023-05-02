@@ -24,10 +24,10 @@ export class UniqueProduct extends Model {
   
   @ForeignKey(() => Product)
   @Column
-  Product_ID!: number;
+  ProductID!: number;
 
   @Column
-  Serial_ID!: number;
+  SerialID!: number;
 
   @Column
   Status!: number;
