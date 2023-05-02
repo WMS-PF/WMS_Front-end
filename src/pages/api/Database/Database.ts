@@ -88,3 +88,13 @@ export async function getAllOrderOut() {
   const object = await OutgoingOrders.findAll();
   return object;
 }
+
+export async function postUInfo(productID, serialID, status, inDate, outDate, inID, outID) {
+  const object = await UniqueProduct.create({
+    Product_ID: ID,
+    Serial_ID: serialID,
+    Status: status,
+    Date: date,
+  });
+  return object
+}
