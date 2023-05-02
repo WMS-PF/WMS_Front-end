@@ -1,4 +1,8 @@
 import { Table, Column, Model, PrimaryKey, AutoIncrement} from 'sequelize-typescript';
+import { Product } from './Product.model';
+import { OutgoingOrders } from './OutgoingOrders.model';
+import { IncomingOrders } from './IncomingOrders.model';
+
 
 //Define options of the table
 @Table({
@@ -18,6 +22,7 @@ export class UniqueProduct extends Model {
   @Column
   id!: number
   
+  @ForeignKey(() => Product)
   @Column
   Product_ID!: number;
 
@@ -27,7 +32,29 @@ export class UniqueProduct extends Model {
   @Column
   Status!: number;
 
+  @ForeignKey(() => IncomingOrders)
   @Column
-  Date!: Date;
+  InDate!: Date;
+
+  @ForeignKey(() => OutgoingOrders)
+  @Column
+  OutDate!: Date;
+
+  @ForeignKey(() => IncomingOrders)
+  @Column
+  InID!: number;
+
+  @ForeignKey(() => OutgoingOrders)
+  @Column
+  OutID!: number;
+
+  @BelongsTo(() => Product)
+  product!: Product;
+
+  @BelongsTo(() => OutgoingOrders)
+  outgoingOrder!: OutgoingOrders;
+
+  @BelongsTo(() => IncomingOrders)
+  incomingOrder!: IncomingOrders;
 
 }
