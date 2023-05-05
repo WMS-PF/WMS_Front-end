@@ -44,14 +44,12 @@ export class UniqueProduct extends Model {
   })
   Status!: number;
 
-  @ForeignKey(() => IncomingOrders)
   @Column({
     type: DataType.DATE,
     allowNull: false
   })
   InDate!: Date;
 
-  @ForeignKey(() => OutgoingOrders)
   @Column({
     type: DataType.DATE,
     allowNull: false

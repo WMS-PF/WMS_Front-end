@@ -32,7 +32,7 @@ export class OutgoingOrders extends Model {
     type: DataType.TEXT,
     allowNull: false
   })
-  Office!: number;
+  City!: string;
 
   @Unique
   @Column({ 
@@ -56,8 +56,5 @@ export class OutgoingOrders extends Model {
 
   @HasMany(() => UniqueProduct, { foreignKey: 'OutID' })
   uniqueProducts!: UniqueProduct[];
-
-  @HasMany(() => UniqueProduct, { foreignKey: 'OutDate' })
-  uniqueProducts2!: UniqueProduct[];
 
 }
