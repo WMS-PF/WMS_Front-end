@@ -23,7 +23,7 @@ export const sequelize = new Sequelize({
 export async function getProduct(ID: string) {
   const object = await Product.findAll({
     where: {
-      Product_ID: {
+      ItemCode: {
         [Op.eq]: ID,
       },
     },
@@ -38,7 +38,7 @@ export async function getAllProducts() {
 export async function getSomeProducts(ID: string[]) {
   const object = await Product.findAll({
     where: {
-      Product_ID: {
+      ItemCode: {
         [Op.or]: ID,
       },
     },
@@ -79,8 +79,8 @@ export async function getAllOrderOut() {
 
 export async function postUInfo(productID: number, serialID: number, status: number, inDate: Date, outDate: Date, inID: number, outID: number) {
   const object = await UniqueProduct.create({
-    ProductID: productID,
-    SerialID: serialID,
+    ItemCode: productID,
+    SerialCode: serialID,
     Status: status,
     InDate: inDate,
     OutDate: outDate,
