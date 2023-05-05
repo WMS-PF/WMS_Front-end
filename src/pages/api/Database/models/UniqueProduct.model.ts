@@ -1,4 +1,4 @@
-import { Table, Column, Model, PrimaryKey, AutoIncrement, ForeignKey, BelongsTo } from 'sequelize-typescript';
+import { Table, Column, Model, PrimaryKey, AutoIncrement, ForeignKey, BelongsTo, DataType } from 'sequelize-typescript';
 import { Product } from './Product.model';
 import { OutgoingOrders } from './OutgoingOrders';
 import { IncomingOrders } from './IncomingOrders';
@@ -19,33 +19,57 @@ export class UniqueProduct extends Model {
    
   @PrimaryKey
   @AutoIncrement
-  @Column
-  id!: number
+  @Column({
+    type: DataType.INTEGER,
+    allowNull: false
+  })
+  ID!: number;
   
   @ForeignKey(() => Product)
-  @Column
-  ProductID!: number;
+  @Column({
+    type: DataType.STRING(20),
+    allowNull: false
+  })
+  ItemCode!: string;
 
-  @Column
-  SerialID!: number;
+  @Column({
+    type: DataType.STRING(16),
+    allowNull: false
+  })
+  SerialCode!: number;
 
-  @Column
+  @Column({
+    type: DataType.INTEGER,
+    allowNull: false
+  })
   Status!: number;
 
   @ForeignKey(() => IncomingOrders)
-  @Column
+  @Column({
+    type: DataType.DATE,
+    allowNull: false
+  })
   InDate!: Date;
 
   @ForeignKey(() => OutgoingOrders)
-  @Column
+  @Column({
+    type: DataType.DATE,
+    allowNull: false
+  })
   OutDate!: Date;
 
   @ForeignKey(() => IncomingOrders)
-  @Column
+  @Column({
+    type: DataType.INTEGER,
+    allowNull: false
+  })
   InID!: number;
 
   @ForeignKey(() => OutgoingOrders)
-  @Column
+  @Column({
+    type: DataType.INTEGER,
+    allowNull: false
+  })
   OutID!: number;
 
   @BelongsTo(() => OutgoingOrders)

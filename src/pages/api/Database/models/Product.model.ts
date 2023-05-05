@@ -1,4 +1,4 @@
-import { Table, Column, Model, PrimaryKey, Sequelize, HasMany } from "sequelize-typescript";
+import { Table, Column, Model, PrimaryKey, Sequelize, HasMany, AutoIncrement, DataType } from "sequelize-typescript";
 import { UniqueProduct } from "./UniqueProduct.model";
 
 //Define options of the table
@@ -14,27 +14,65 @@ import { UniqueProduct } from "./UniqueProduct.model";
 export class Product extends Model {
   
   @PrimaryKey
-  @Column
-  Product_ID!: number;
+  @AutoIncrement
+  @Column({
+    type: DataType.INTEGER,
+    allowNull: false
+  })
+  ID!: number;
 
-  @Column
-  Product_Name!: string;
+  @Column({
+    type: DataType.TEXT,
+    allowNull: false
+  })
+  ProductName!: string;
 
-  @Column
-  Weight!: number;
-
-  @Column
-  Length!: number;
-
-  @Column
-  Width!: number;
-
-  @Column
-  Height!: number;
-
-  @Column
+  @Column({
+    type: DataType.TEXT,
+    allowNull: false
+  })
   Brand!: string;
 
-  /*@HasMany(() => UniqueProduct)
-  uniqueProducts!: UniqueProduct[];*/
+  @Column({
+    type: DataType.STRING(20),
+    allowNull: false
+  })
+  ItemCode!: string;
+  
+  @Column({
+    type: DataType.STRING(16),
+    allowNull: false
+  })
+  Reference!: string;
+
+  @Column({
+    type: DataType.TEXT,
+    allowNull: false
+  })
+  Description!: string;
+
+  @Column({
+    type: DataType.FLOAT,
+    allowNull: false
+  })
+  Length!: number;
+
+  @Column({
+    type: DataType.FLOAT,
+    allowNull: false
+  })
+  Width!: number;
+
+  @Column({
+    type: DataType.FLOAT,
+    allowNull: false
+  })
+  Height!: number;
+
+  @Column({
+    type: DataType.FLOAT,
+    allowNull: false
+  })
+  Weight!: number;
+
 }

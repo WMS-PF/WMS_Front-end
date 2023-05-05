@@ -7,6 +7,8 @@ import { OutgoingOrders } from "./models/OutgoingOrders";
 import { Availability } from "./models/Availability";
 require("dotenv").config();
 
+const currentDate = new Date();
+
 //Initialize Sequelize Instance With defined modules
 export const sequelize = new Sequelize({
   database: process.env.DATABASE,
@@ -86,4 +88,60 @@ export async function postUInfo(productID: number, serialID: number, status: num
     OutID: outID
   });
   return object
+}
+
+export async function getOrderOutStandBy() {
+  const object = await OutgoingOrders.findAll({
+    where: { Status: 0 },
+  });
+  return object;
+}
+
+export async function getOrderOutProcess() {
+  const object = await OutgoingOrders.findAll({
+    where: { Status: 1 },
+  });
+  return object;
+}
+
+export async function getOrderOutTransit() {
+  const object = await OutgoingOrders.findAll({
+    where: { Status: 2 },
+  });
+  return object;
+}
+
+export async function getOrderOutDelayed() {
+  const object = await OutgoingOrders.findAll({
+    where: { Date: {[Op.lt]: currentDate} },
+  });
+  return object;
+}
+
+export async function getOrderInStandBy() {
+  const object = await IncomingOrders.findAll({
+    where: { Status: 0 },
+  });
+  return object;
+}
+
+export async function getOrderInProcess() {
+  const object = await IncomingOrders.findAll({
+    where: { Status: 1 },
+  });
+  return object;
+}
+
+export async function getOrderInReceived() {
+  const object = await IncomingOrders.findAll({
+    where: { Status: { [Op.in]: [2, 3] } },
+  });
+  return object;
+}
+
+export async function getOrderInDelayed() {
+  const object = await IncomingOrders.findAll({
+    where: { Date: {[Op.lt]: currentDate} },
+  });
+  return object;
 }

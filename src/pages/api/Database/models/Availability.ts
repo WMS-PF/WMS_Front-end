@@ -14,12 +14,18 @@ import { Table, Column, Model, PrimaryKey, DataType} from 'sequelize-typescript'
 export class Availability extends Model {
 
    
-  @Column
-  Product_Name!: string;
+  @Column({
+    type: DataType.TEXT,
+  })
+  ProductName!: string;
 
-  @Column
-  Product_ID!: number;
+  @Column({
+    type: DataType.STRING(20),
+  })
+  ItemCode!: string;
 
-  @Column
-  count!: number;
+  @Column({
+    type: DataType.BIGINT,
+  })
+  availability!: number;
 }

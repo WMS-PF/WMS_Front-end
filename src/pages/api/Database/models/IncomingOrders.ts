@@ -16,23 +16,42 @@ export class IncomingOrders extends Model {
 
    
   @PrimaryKey
-  @Column
+  @Column({
+    type: DataType.BIGINT,
+    allowNull: false
+  })
   OrderID!: number;
 
-  @Column
-  Company!: string;
+  @Column({
+    type: DataType.TEXT,
+    allowNull: false
+  })
+  Provider!: string;
 
-  @Column
+  @Column({
+    type: DataType.TEXT,
+    allowNull: false
+  })
   Office!: number;
 
   @Unique
-  @Column({ unique: true })
+  @Column({ 
+    type: DataType.DATE,
+    allowNull: false,
+    unique: true
+  })
   Date!: Date;
 
-  @Column(DataType.JSONB)
+  @Column({
+    type: DataType.JSONB,
+    allowNull: false
+  })
   Products!: object;
 
-  @Column
+  @Column({
+    type: DataType.INTEGER,
+    allowNull: false
+  })
   Status!: number;
 
   @HasMany(() => UniqueProduct, { foreignKey: 'InID' })
