@@ -37,6 +37,7 @@ export default async function handler(
 
       res.status(200).json({ message: "Productos actualizados con éxito" });
     } catch (error) {
+      console.log(error);
       res.status(500).json({ message: `Error al actualizar los productos: ${error}` });
     }
   } else {
