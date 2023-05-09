@@ -14,7 +14,7 @@ export default async function handler(
       const updatedProducts = req.body;
 
       for (const product of updatedProducts) {
-        const productId = product.ProductID;
+        const productId = product.ItemCode;
         const status = product.Status;
         const outDate = product.OutDate;
         const outID = product.OutID;
