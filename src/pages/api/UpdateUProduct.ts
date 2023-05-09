@@ -21,7 +21,7 @@ export default async function handler(
 
         // Buscar el primer producto con el ID correspondiente y que no haya sido despachado
         const productToUpdate = await UniqueProduct.findOne({
-          where: { ProductID: productId, Status: 0 },
+          where: { ItemCode: productId, Status: 0 },
         });
 
         if (productToUpdate) {
