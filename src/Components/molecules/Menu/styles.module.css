@@ -1,5 +1,45 @@
 .div {
   background-color: white;
   color: black;
+  flex-direction: column;
+  display: flex;
+  align-items: flex-start;
+  padding-inline: 40px;
+  width: 250px;
+  padding-top: 100px;
+  gap: 18px;
+  justify-content: calc(100-50);
+}
+.div2 {
+  background-color: white;
+  color: black;
+  flex-direction: column;
+  display: flex;
+  align-items: flex-start;
+
+  width: 250px;
+  padding-top: 80px;
+  gap: 18px;
+  justify-content: calc(100-50);
+}
+.link {
+  display: flex;
+  gap: 10px;
+  flex-direction: row;
+  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+  font-weight: lighter;
+  color: #818080;
+  height: 20px;
+}
+.link:active,
+.link:focus,
+.link::selection {
+  background-color: #ed1c24;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   width: 200px;
+  border-radius: 10px;
+  color: white;
 }

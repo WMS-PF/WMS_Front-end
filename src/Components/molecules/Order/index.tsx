@@ -20,7 +20,6 @@ interface Props {
 
 export default function Order(props: Props) {
   const [searchProduct, setSearchProduct] = useState<string>("");
-
   const products = Object.keys(props.order?.Products ?? {});
 
   // Queries
@@ -28,9 +27,9 @@ export default function Order(props: Props) {
     queryFn: () => request(apis.getProduct + products.join(",")),
     queryKey: [apis.getProduct + products.join(",")],
   });
-
+  console.log(query.data);
   const productSearched = query.data?.find(
-    (ite) => ite.Product_Name == searchProduct
+    (ite) => ite.ProductName == searchProduct
   );
 
   return (
@@ -38,17 +37,17 @@ export default function Order(props: Props) {
       <div className={styles.listcontainer}>
         <div className={styles.orderinfo}>
           <br></br>
-          <h3>Informacion de la orden N° {props.order?.OrderID}</h3>
+          <h3> N° orden {props.order?.OrderID}</h3>
           <br></br>
-          <br></br>
+
           <p className={styles.p}>
             <HiOfficeBuilding size={24} />
-            Empresa: {props.order?.Company}
+            Proovedor: {props.order?.Provider}
           </p>
           <p className={styles.p}>
             {" "}
             <MdStore size={24} />
-            Sucursal: {props.order?.Office}{" "}
+            Ciudad: {props.order?.City}{" "}
           </p>
           <p className={styles.p}>
             {props.order?.Status == 1 ? (
@@ -59,17 +58,22 @@ export default function Order(props: Props) {
             Estado del pedido:{" "}
             {props.order?.Status == 1 ? "Abierto" : "Cerrado"}
           </p>
+
           <p className={styles.p}></p>
         </div>
         <br></br>
         <br></br>
-        <h3 className={styles.h3}>Productos </h3>
+        <div className={styles.table}>
+          <th>Descripción</th>
+          <th>Cantidad</th>
+        </div>
+
         {products.map((item, index) => (
           <Product
             key={item}
             id={item}
             quantity={(props.order?.Products as Record<string, number>)[item]}
-            data={query.data?.find((ite) => ite.Product_ID.toString() == item)}
+            data={query.data?.find((ite) => ite.ItemCode == item)}
           />
         ))}
       </div>
@@ -79,7 +83,7 @@ export default function Order(props: Props) {
           {productSearched ? (
             <>
               <h4>Detalles del producto</h4>
-              <h2>{productSearched?.Product_Name}</h2>
+              <h2>{productSearched?.ProductName}</h2>
 
               <br></br>
               <h4>Proveedor</h4>

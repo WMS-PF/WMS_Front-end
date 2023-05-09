@@ -1,3 +1,4 @@
+import Menu from "@/Components/molecules/Menu";
 import { Html, Head, Main, NextScript } from "next/document";
 
 export default function Document() {

@@ -84,3 +84,9 @@
 .listcontainer::-webkit-scrollbar-track {
   border-radius: 10px;
 }
+
+.table {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}

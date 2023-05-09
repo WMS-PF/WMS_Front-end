@@ -11,6 +11,7 @@ import "react-loading-skeleton/dist/skeleton.css";
 interface Props {
   onChangeOrder: (order: IncomingOrders) => void;
 }
+
 export default function IncomeOrder(props: Props) {
   const [searchOrder, setSearchOrder] = useState<number>();
   // Queries
@@ -58,7 +59,7 @@ export default function IncomeOrder(props: Props) {
               >
                 N°{orderSearched.OrderID} <br></br>
                 <p className={styles.status}>
-                  {orderSearched.Status == 1 ? "Abierto" : "Cerrado"}
+                  {orderSearched.Status == 0 ? "Abierto" : null}
                 </p>
               </div>
             )) || "No result"
@@ -69,7 +70,15 @@ export default function IncomeOrder(props: Props) {
                 onClick={() => props.onChangeOrder(item)}
               >
                 N°{item.OrderID} <br></br> {index == 0 ? "Nuevo - " : null}
-                {item.Status == 1 ? "Abierto" : "Cerrado"}
+                {item.Status == 0
+                  ? "Abierto"
+                  : item.Status == 1
+                  ? "Recibo"
+                  : item.Status == 2
+                  ? "Tramite"
+                  : item.Status == 3
+                  ? "Cerrado"
+                  : ""}
               </div>
             ))}
       </div>

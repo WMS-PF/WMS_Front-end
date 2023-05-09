@@ -68,7 +68,15 @@ export default function ShippingOrder(props: Props) {
                 onClick={() => props.onChangeOrder(item)}
               >
                 N°{item.OrderID} <br></br> {index == 0 ? "Nuevo - " : null}
-                {item.Status == 1 ? "Abierto" : "Cerrado"}
+                {item.Status == 0
+                  ? "Abierto"
+                  : item.Status == 1
+                  ? "Recibo"
+                  : item.Status == 2
+                  ? "Tramite"
+                  : item.Status == 3
+                  ? "Cerrado"
+                  : ""}
               </div>
             ))}
       </div>
