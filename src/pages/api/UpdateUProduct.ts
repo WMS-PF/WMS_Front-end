@@ -11,7 +11,7 @@ export default async function handler(
 ) {
   if (req.method === "PUT") {
     try {
-      const updatedProducts = JSON.parse(req.body);
+      const updatedProducts = req.body;
 
       for (const product of updatedProducts) {
         const productId = product.ProductID;
