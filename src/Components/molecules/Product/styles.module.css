@@ -3,10 +3,12 @@
   justify-content: space-between;
   padding: 8px;
   font-size: 16px;
+  cursor: pointer;
 }
 .orderdetailinfo2 {
   display: flex;
   justify-content: center;
   padding: 8px;
   font-size: 16px;
+  cursor: pointer;
 }

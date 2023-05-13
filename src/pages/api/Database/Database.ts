@@ -16,7 +16,13 @@ export const sequelize = new Sequelize({
   username: process.env.USUARIO,
   password: process.env.PASSWORD,
   host: process.env.HOST,
-  models: [Product, UniqueProduct, IncomingOrders, OutgoingOrders, Availability], //Table Models
+  models: [
+    Product,
+    UniqueProduct,
+    IncomingOrders,
+    OutgoingOrders,
+    Availability,
+  ], //Table Models
 });
 
 //GET info about product with the productID
@@ -31,8 +37,7 @@ export async function getProduct(ID: string) {
   return object;
 }
 export async function getAllProducts() {
-  const object = await Product.findAll({
-  });
+  const object = await Product.findAll({});
   return object;
 }
 export async function getSomeProducts(ID: string[]) {
@@ -60,7 +65,7 @@ export async function getAllOrderIn() {
 
 export async function getAvailability() {
   const object = await Availability.findAll({
-    attributes: ['Product_Name', 'Product_ID', 'count']
+    attributes: ["ProductName", "ItemCode", "availability"],
   });
   return object;
 }
@@ -77,7 +82,15 @@ export async function getAllOrderOut() {
   return object;
 }
 
-export async function postUInfo(productID: number, serialID: number, status: number, inDate: Date, outDate: Date, inID: number, outID: number) {
+export async function postUInfo(
+  productID: number,
+  serialID: number,
+  status: number,
+  inDate: Date,
+  outDate: Date,
+  inID: number,
+  outID: number
+) {
   const object = await UniqueProduct.create({
     ItemCode: productID,
     SerialCode: serialID,
@@ -85,9 +98,9 @@ export async function postUInfo(productID: number, serialID: number, status: num
     InDate: inDate,
     OutDate: outDate,
     InID: inID,
-    OutID: outID
+    OutID: outID,
   });
-  return object
+  return object;
 }
 
 export async function getOrderOutStandBy() {
@@ -113,7 +126,7 @@ export async function getOrderOutTransit() {
 
 export async function getOrderOutDelayed() {
   const object = await OutgoingOrders.findAll({
-    where: { Date: {[Op.lt]: currentDate} },
+    where: { Date: { [Op.lt]: currentDate } },
   });
   return object;
 }
@@ -141,7 +154,7 @@ export async function getOrderInReceived() {
 
 export async function getOrderInDelayed() {
   const object = await IncomingOrders.findAll({
-    where: { Date: {[Op.lt]: currentDate} },
+    where: { Date: { [Op.lt]: currentDate } },
   });
   return object;
 }

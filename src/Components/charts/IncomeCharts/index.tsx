@@ -6,7 +6,9 @@ import apis from "@/helpers/apis";
 import { useQuery } from "react-query";
 import { IncomingOrders } from "@/pages/api/Database/models/IncomingOrders";
 import styles from "./styles.module.css";
+import { useMediaQuery } from "@mui/material";
 export const IncomeChart = (): JSX.Element => {
+  const isMobile = useMediaQuery("(max-width: 480px)");
   const ref = useRef();
   //query
   const query = useQuery<IncomingOrders[]>({

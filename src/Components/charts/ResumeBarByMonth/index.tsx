@@ -16,7 +16,9 @@ import {
 } from "chart.js";
 
 import styles from "./styles.module.css";
+import { useMediaQuery } from "@mui/material";
 export const ResumeBarByMonth = (): JSX.Element => {
+  const isMobile = useMediaQuery("(max-width: 480px)");
   const ref = useRef();
   //Income orders query
   const incomeOrderQuery = useQuery<IncomingOrders[]>({
@@ -55,18 +57,18 @@ export const ResumeBarByMonth = (): JSX.Element => {
     .map((item, index) => shippedOrderDataByMonths[index]?.length ?? 0);
   const data = {
     labels: [
-      "January",
-      "February",
-      "March",
-      "April",
-      "May",
-      "June",
-      "July",
-      "August",
-      "September",
-      "October",
-      "November",
-      "December",
+      "Enero",
+      "Febrero",
+      "Marzo",
+      "Abril",
+      "Mayo",
+      "Junio",
+      "Julio",
+      "Agosto",
+      "Septiembre",
+      "Octubre",
+      "Noviembre",
+      "Diciember",
     ],
     datasets: [
       {
@@ -99,7 +101,11 @@ export const ResumeBarByMonth = (): JSX.Element => {
     },
   };
 
-  return (
+  return isMobile ? (
+    <div className={styles.bar}>
+      <Bar data={data} ref={ref} options={options} />
+    </div>
+  ) : (
     <div className={styles.bar}>
       <Bar data={data} ref={ref} options={options} />
     </div>

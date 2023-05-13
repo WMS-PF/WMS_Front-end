@@ -68,10 +68,67 @@
 }
 
 .orderscontainer::-webkit-scrollbar-thumb {
-  background-color: #797979;
+  background-color: #c2bbbf;
   border-radius: 16px;
 }
 
 .orderscontainer::-webkit-scrollbar-track {
   border-radius: 10px;
+}
+@media only screen and (min-device-width: 320px) and (max-device-width: 480px) {
+  .orderscontainer {
+    background-color: #ed1c24;
+    border-radius: 16px;
+    -webkit-margin-after: 17px;
+    margin-block-end: 17px;
+    padding-inline: 15px;
+    flex: 1 1;
+    padding-block-start: 22px;
+    overflow-y: overlay;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  .order {
+    width: 100%;
+    background-color: aliceblue;
+    color: black;
+    margin-bottom: 10px;
+    border-radius: 16px;
+    padding: 10px;
+    padding-inline: 20px;
+    font-size: 12px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    cursor: pointer;
+  }
+  .searchContainer {
+    font-size: 16px;
+    font-style: normal;
+    font-weight: bold;
+    display: flex;
+    flex-direction: row;
+    width: 97%;
+    justify-content: space-between;
+    position: relative;
+    padding-block: 15px;
+    color: black;
+    align-items: center;
+  }
+  .fafasearch {
+    cursor: pointer;
+  }
+  .searchbar {
+    background-color: #d9d9d9;
+    top: 159px;
+    position: absolute;
+    left: 200px;
+    height: 36px;
+    border-radius: 6px;
+    padding-inline: 12px;
+    color: black;
+  }
 }

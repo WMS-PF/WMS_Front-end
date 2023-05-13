@@ -46,3 +46,78 @@
 
   align-self: flex-start;
 }
+@media only screen and (min-device-width: 320px) and (max-device-width: 480px) and (min-device-height: 660px) {
+  .ShippedChart {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    background-color: white;
+    width: 400px;
+  }
+  .main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    overflow: auto;
+    min-height: 100px;
+    padding-block: 1rem;
+    background: #e7ecef;
+    width: 100%;
+    border-radius: 16px;
+    gap: 20px;
+    position: relative;
+  }
+  .mail {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    width: 100%;
+    padding: 1rem;
+    background-color: white;
+  }
+  .doughnutContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    height: 100%;
+  }
+  .barAndDoughnut {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+    gap: 10px;
+    justify-content: center;
+    padding-inline: 20px;
+    position: absolute;
+  }
+  .inProcessContainer {
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+    align-self: flex-start;
+  }
+  .main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    overflow: auto;
+    min-height: 100px;
+    padding-block: 20rem;
+    background: #e7ecef;
+    width: 100%;
+    border-radius: 16px;
+    gap: 20px;
+    height: 100%;
+    overflow-y: auto;
+  }
+  .mail {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    width: 100%;
+    padding: 1rem;
+    background-color: white;
+    overflow-y: auto;
+  }
+}

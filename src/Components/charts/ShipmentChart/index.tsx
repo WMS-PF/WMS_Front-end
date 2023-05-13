@@ -6,8 +6,10 @@ import apis from "@/helpers/apis";
 import { useQuery } from "react-query";
 import styles from "./styles.module.css";
 import { OutgoingOrders } from "@/pages/api/Database/models/OutgoingOrders";
+import { useMediaQuery } from "@mui/material";
 
 export const ShipmentChart = (): JSX.Element => {
+  const isMobile = useMediaQuery("(max-width: 480px)");
   const ref = useRef();
   //query
   const query = useQuery<OutgoingOrders[]>({
@@ -42,7 +44,11 @@ export const ShipmentChart = (): JSX.Element => {
     ],
   };
 
-  return (
+  return isMobile ? (
+    <div className={styles.doughnut}>
+      <Doughnut ref={ref} data={dataDoughnut} width={150} height={150} />{" "}
+    </div>
+  ) : (
     <div className={styles.doughnut}>
       <Doughnut ref={ref} data={dataDoughnut} />{" "}
     </div>
