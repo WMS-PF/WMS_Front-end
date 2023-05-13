@@ -12,15 +12,15 @@ export default async function handler(
     const data = req.body;
 
     for (const item of data) {
-      const productID = item.ProductID;
-      const serialID = item.SerialID;
+      const itemCode = item.ItemCode;
+      const serialCode = item.SerialCode;
       const status = item.Status;
       const inDate = item.InDate;
       const outDate = item.OutDate;
       const inID = item.InID;
       const outID = item.OutID;
 
-      await postUInfo(productID, serialID, status, inDate, outDate, inID, outID);
+      await postUInfo(itemCode, serialCode, status, inDate, outDate, inID, outID);
     }
 
     console.log("OK");

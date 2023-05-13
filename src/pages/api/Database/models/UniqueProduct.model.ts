@@ -34,7 +34,7 @@ export class UniqueProduct extends Model {
 
   @Column({
     type: DataType.STRING(16),
-    allowNull: false
+    allowNull: true
   })
   SerialCode!: number;
 
@@ -52,7 +52,7 @@ export class UniqueProduct extends Model {
 
   @Column({
     type: DataType.DATE,
-    allowNull: false
+    allowNull: true
   })
   OutDate!: Date;
 
@@ -66,7 +66,7 @@ export class UniqueProduct extends Model {
   @ForeignKey(() => OutgoingOrders)
   @Column({
     type: DataType.INTEGER,
-    allowNull: false
+    allowNull: true
   })
   OutID!: number;
 

@@ -11,17 +11,17 @@ export default async function handler(
 ) {
   if (req.method === "PUT") {
     try {
-      const updatedProducts = JSON.parse(req.body);
+      const updatedProducts = req.body;
 
       for (const product of updatedProducts) {
-        const productId = product.ProductID;
+        const productId = product.ItemCode;
         const status = product.Status;
         const outDate = product.OutDate;
         const outID = product.OutID;
 
         // Buscar el primer producto con el ID correspondiente y que no haya sido despachado
         const productToUpdate = await UniqueProduct.findOne({
-          where: { ProductID: productId, Status: 0 },
+          where: { ItemCode: productId, Status: 0 },
         });
 
         if (productToUpdate) {
@@ -37,6 +37,7 @@ export default async function handler(
 
       res.status(200).json({ message: "Productos actualizados con éxito" });
     } catch (error) {
+      console.log(error);
       res.status(500).json({ message: `Error al actualizar los productos: ${error}` });
     }
   } else {
