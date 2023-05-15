@@ -82,19 +82,15 @@ export async function getAllOrderOut() {
   return object;
 }
 
-<<<<<<< HEAD
 export async function postUInfo(
-  productID: number,
-  serialID: number,
+  productID: string,
+  serialID: number | null,
   status: number,
   inDate: Date,
-  outDate: Date,
+  outDate: Date | null,
   inID: number,
-  outID: number
+  outID: number | null
 ) {
-=======
-export async function postUInfo(productID: string, serialID: number | null, status: number, inDate: Date, outDate: Date | null, inID: number, outID: number | null) {
->>>>>>> a6339cf665114f9cf5311316384f57676316d3c3
   const object = await UniqueProduct.create({
     ItemCode: productID,
     SerialCode: serialID,

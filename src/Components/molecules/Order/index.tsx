@@ -13,14 +13,31 @@ import { useMediaQuery } from "@mui/material";
 import ProductDetails from "../ProductDetails";
 import { useState } from "react";
 import { Availability } from "@/pages/api/Database/models/Availability";
+import { OutgoingOrders } from "@/pages/api/Database/models/OutgoingOrders";
+
+enum IncomingOrderStatusEnum {
+  Abierto = 0,
+  Recibo = 1,
+  Tramite = 2,
+  Cerrado = 3,
+}
+enum OutgoingOrderStatusEnum {
+  Abierto = 0,
+  Despacho = 1,
+  Transito = 2,
+  Cerrado = 3,
+}
 interface Props {
-  order: IncomingOrders | null;
+  order: IncomingOrders | null | OutgoingOrders;
+  isIncoming: boolean;
 }
 export default function Order(props: Props) {
   const products = Object.keys(props.order?.Products ?? {});
   const isMobile = useMediaQuery("(max-width: 480px)");
   const [itemCode, setItemCode] = useState<string | null>(null);
-  // Queries
+  const IsIncoming = props.isIncoming;
+
+  // Queries for products information
   const query = useQuery<ProductModel[]>({
     queryFn: () => request(apis.getProduct + products.join(",")),
     queryKey: [apis.getProduct + products.join(",")],
@@ -50,18 +67,26 @@ export default function Order(props: Props) {
               <BiTask size={20} />
             )}
             Estado del pedido:{" "}
-            {props.order?.Status == 1
+            {IsIncoming
+              ? props.order?.Status == IncomingOrderStatusEnum.Abierto
+                ? "Abierto"
+                : props.order?.Status == IncomingOrderStatusEnum.Recibo
+                ? "Recibo"
+                : props.order?.Status == IncomingOrderStatusEnum.Tramite
+                ? "Tramite"
+                : props.order?.Status == IncomingOrderStatusEnum.Cerrado
+                ? "Cerrado"
+                : "Sin definir"
+              : props.order?.Status == OutgoingOrderStatusEnum.Abierto
               ? "Abierto"
-              : props.order?.Status == 2
+              : props.order?.Status == OutgoingOrderStatusEnum.Despacho
               ? "Despacho"
-              : props.order?.Status == 3
+              : props.order?.Status == OutgoingOrderStatusEnum.Transito
               ? "Transito"
-              : props.order?.Status == 3
+              : props.order?.Status == OutgoingOrderStatusEnum.Cerrado
               ? "Cerrado"
-              : null}
+              : "Sin definir2"}
           </p>
-
-          <p className={styles.p}></p>
         </div>
         <br></br>
         <br></br>
@@ -69,19 +94,22 @@ export default function Order(props: Props) {
           <p className={styles.p}>Descripción</p>
           <p className={styles.p}>Cantidad</p>
         </div>
-
-        {query.data?.map((item, index) => (
-          <Product
-            key={item.ItemCode}
-            quantity={
-              (props.order?.Products as Record<string, number>)?.[item.ItemCode]
-            }
-            data={item}
-            onClick={() => {
-              setItemCode(item.ItemCode);
-            }}
-          />
-        ))}
+        <div>
+          {query.data?.map((item, index) => (
+            <Product
+              key={item.ItemCode}
+              quantity={
+                (props.order?.Products as Record<string, number>)?.[
+                  item.ItemCode
+                ]
+              }
+              data={item}
+              onClick={() => {
+                setItemCode(item.ItemCode);
+              }}
+            />
+          ))}
+        </div>
       </div>
 
       {isMobile ? null : (

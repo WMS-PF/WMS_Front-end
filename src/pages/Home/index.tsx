@@ -5,14 +5,16 @@ import { useState } from "react";
 import ShippingOrder from "@/Components/molecules/ShippingOrder";
 import IncomeOrder from "@/Components/molecules/IncomeOrder";
 import { IncomingOrders } from "../api/Database/models/IncomingOrders";
-import { Availability } from "../api/Database/models/Availability";
 import { useMediaQuery } from "@mui/material";
 import MobileHomeMenu from "@/Components/molecules/MobileHomeMenu";
+import { OutgoingOrders } from "../api/Database/models/OutgoingOrders";
 
 export default function Home() {
-  const [order, setOrder] = useState<null | IncomingOrders>(null);
-  const [orderOut, setOrderOut] = useState<null | Availability>(null);
+  const [order, setOrder] = useState<null | IncomingOrders | OutgoingOrders>(
+    null
+  );
   const isMobile = useMediaQuery("(max-width: 480px)");
+  const [isIncoming, setIsIncoming] = useState(false);
   return (
     <>
       <Head>
@@ -24,11 +26,21 @@ export default function Home() {
             <MobileHomeMenu />
             <div className={styles.orderinformationcontainer}>
               <div className={styles.ordercontainer}>
-                <IncomeOrder onChangeOrder={(order) => setOrder(order)} />
-                <ShippingOrder onChangeOrder={(order) => setOrder(order)} />
+                <IncomeOrder
+                  onChangeOrder={(order) => {
+                    setOrder(order);
+                    setIsIncoming(true);
+                  }}
+                />
+                <ShippingOrder
+                  onChangeOrder={(order) => {
+                    setOrder(order);
+                    setIsIncoming(false);
+                  }}
+                />
               </div>
             </div>
-            <Order order={order} />
+            <Order order={order} isIncoming={isIncoming} />
           </div>
         </main>
       ) : (
@@ -36,11 +48,21 @@ export default function Home() {
           <div className={styles.home}>
             <div className={styles.orderinformationcontainer}>
               <div className={styles.ordercontainer}>
-                <IncomeOrder onChangeOrder={(order) => setOrder(order)} />
-                <ShippingOrder onChangeOrder={(order) => setOrder(order)} />
+                <IncomeOrder
+                  onChangeOrder={(order) => {
+                    setOrder(order);
+                    setIsIncoming(true);
+                  }}
+                />
+                <ShippingOrder
+                  onChangeOrder={(order) => {
+                    setOrder(order);
+                    setIsIncoming(false);
+                  }}
+                />
               </div>
             </div>
-            <Order order={order} />
+            <Order order={order} isIncoming={isIncoming} />
           </div>
         </main>
       )}

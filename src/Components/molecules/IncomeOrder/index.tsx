@@ -13,7 +13,7 @@ interface Props {
 }
 
 export default function IncomeOrder(props: Props) {
-  const [searchOrder, setSearchOrder] = useState<number>();
+  const [searchOrder, setSearchOrder] = useState<string>();
   const isMobile = useMediaQuery("(max-width: 480px)");
   // Queries
   const query = useQuery<IncomingOrders[]>({
@@ -23,7 +23,9 @@ export default function IncomeOrder(props: Props) {
   const data = query.data;
   //
   // OrderID consults the order
-  const orderSearched = query.data?.find((ite) => ite.OrderID == searchOrder);
+  const orderSearched = query.data?.filter(
+    (ite) => ite.OrderID.toString() == searchOrder
+  );
   const [searchActive, setSearchActive] = useState(false);
 
   const handleSearchClick = () => {
@@ -47,23 +49,25 @@ export default function IncomeOrder(props: Props) {
             {searchActive && (
               <input
                 type="text"
-                placeholder="Search"
+                placeholder="Buscar orden por ID"
                 className={styles.searchbar}
                 value={searchOrder ? searchOrder : ""}
-                onChange={(e) => setSearchOrder(parseInt(e.target.value))}
+                onChange={(e) => setSearchOrder(e.target.value)}
               />
             )}
 
-            {orderSearched
-              ? visibleResultToSearch?.map((item, index) => (
+            {orderSearched?.length
+              ? orderSearched?.map((item, index) => (
                   <div
                     key={index}
                     className={styles.order}
-                    onClick={() => props.onChangeOrder(item)}
+                    onClick={() => {
+                      props.onChangeOrder(item);
+                    }}
                   >
-                    N°{orderSearched.OrderID} <br></br>
+                    N°{item.OrderID} <br></br>
                     <p className={styles.status}>
-                      {orderSearched.Status == 0 ? "Abierto" : null}
+                      {item.Status == 0 ? "Abierto" : null}
                     </p>
                   </div>
                 )) || "No result"
@@ -71,7 +75,9 @@ export default function IncomeOrder(props: Props) {
                   <div
                     key={index}
                     className={styles.order}
-                    onClick={() => props.onChangeOrder(item)}
+                    onClick={() => {
+                      props.onChangeOrder(item);
+                    }}
                   >
                     N°{item.OrderID} <br></br> {index == 0 ? "Nuevo - " : null}
                     {item.Status == 0
@@ -97,30 +103,33 @@ export default function IncomeOrder(props: Props) {
             {searchActive && (
               <input
                 type="text"
-                placeholder="Search"
+                placeholder="Buscar orden por ID"
                 className={styles.searchbar}
                 value={searchOrder ? searchOrder : ""}
-                onChange={(e) => setSearchOrder(parseInt(e.target.value))}
+                onChange={(e) => setSearchOrder(e.target.value)}
               />
             )}
           </div>
 
-          {orderSearched
-            ? visibleResultToSearch?.map((item, index) => (
+          {orderSearched?.length
+            ? orderSearched?.map((item, index) => (
                 <div
                   key={index}
                   className={styles.order}
-                  onClick={() => props.onChangeOrder(item)}
+                  onClick={() => {
+                    console.log(item);
+                    props.onChangeOrder(item);
+                  }}
                 >
-                  N°{orderSearched.OrderID} <br></br>
+                  N°{item.OrderID} <br></br>
                   <p className={styles.status}>
-                    {orderSearched.Status == 0
+                    {item.Status == 0
                       ? "Abierto"
-                      : orderSearched.Status == 1
+                      : item.Status == 1
                       ? "Recibo"
-                      : orderSearched.Status == 2
+                      : item.Status == 2
                       ? "Tramite"
-                      : orderSearched.Status == 3
+                      : item.Status == 3
                       ? "Cerrado"
                       : null}
                   </p>

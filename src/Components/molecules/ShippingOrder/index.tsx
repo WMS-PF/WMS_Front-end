@@ -9,11 +9,12 @@ import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 import { OutgoingOrders } from "@/pages/api/Database/models/OutgoingOrders";
 import { useMediaQuery } from "@mui/material";
+import Order from "../Order";
 interface Props {
   onChangeOrder: (order: OutgoingOrders) => void;
 }
 export default function ShippingOrder(props: Props) {
-  const [searchOrder, setSearchOrder] = useState<number>();
+  const [searchOrder, setSearchOrder] = useState<string>();
   const isMobile = useMediaQuery("(max-width: 480px)");
   // Queries
   const query = useQuery<OutgoingOrders[]>({
@@ -23,7 +24,9 @@ export default function ShippingOrder(props: Props) {
   const data = query.data;
 
   // OrderID consults the order
-  const orderSearched = query.data?.find((ite) => ite.OrderID == searchOrder);
+  const orderSearched = query.data?.filter(
+    (ite) => ite.OrderID.toString() == searchOrder
+  );
 
   const [searchActive, setSearchActive] = useState(false);
 
@@ -47,30 +50,30 @@ export default function ShippingOrder(props: Props) {
             {searchActive && (
               <input
                 type="text"
-                placeholder="Search"
+                placeholder="Buscar orden por ID"
                 className={styles.searchbar}
                 value={searchOrder ? searchOrder : ""}
-                onChange={(e) => setSearchOrder(parseInt(e.target.value))}
+                onChange={(e) => setSearchOrder(e.target.value)}
               />
             )}
 
-            {orderSearched
-              ? visibleResultToSearch?.map((item, index) => (
+            {orderSearched?.length
+              ? orderSearched?.map((item, index) => (
                   <div
                     key={index}
                     className={styles.order}
                     onClick={() => props.onChangeOrder(item)}
                   >
-                    N°{orderSearched.OrderID} <br></br>
+                    N°{item.OrderID} <br></br>
                     <p className={styles.status}>
-                      {orderSearched.Status == 0
+                      {item.Status == 0
                         ? "Abierto"
-                        : orderSearched.Status == 1
+                        : item.Status == 1
                         ? "Despacho"
-                        : orderSearched.Status == 2
-                        ? "Tránsito"
-                        : orderSearched.Status == 3
-                        ? "Despacho"
+                        : item.Status == 2
+                        ? "Transito"
+                        : item.Status == 3
+                        ? "Cerrado"
                         : null}
                     </p>
                   </div>
@@ -85,9 +88,9 @@ export default function ShippingOrder(props: Props) {
                     {item.Status == 0
                       ? "Abierto"
                       : item.Status == 1
-                      ? "Recibo"
+                      ? "Despacho"
                       : item.Status == 2
-                      ? "Tramite"
+                      ? "Transito"
                       : item.Status == 3
                       ? "Cerrado"
                       : ""}
@@ -105,31 +108,31 @@ export default function ShippingOrder(props: Props) {
             {searchActive && (
               <input
                 type="text"
-                placeholder="Search"
+                placeholder="Buscar orden por ID"
                 className={styles.searchbar}
                 value={searchOrder ? searchOrder : ""}
-                onChange={(e) => setSearchOrder(parseInt(e.target.value))}
+                onChange={(e) => setSearchOrder(e.target.value)}
               />
             )}
           </div>
 
-          {orderSearched
-            ? visibleResultToSearch?.map((item, index) => (
+          {orderSearched?.length
+            ? orderSearched?.map((item, index) => (
                 <div
                   key={index}
                   className={styles.order}
                   onClick={() => props.onChangeOrder(item)}
                 >
-                  N°{orderSearched.OrderID} <br></br>
+                  N°{item.OrderID} <br></br>
                   <p className={styles.status}>
-                    {orderSearched.Status == 0
+                    {item.Status == 0
                       ? "Abierto"
-                      : orderSearched.Status == 1
+                      : item.Status == 1
                       ? "Despacho"
-                      : orderSearched.Status == 2
-                      ? "Tránsito"
-                      : orderSearched.Status == 3
-                      ? "Despacho"
+                      : item.Status == 2
+                      ? "Transito"
+                      : item.Status == 3
+                      ? "Cerrado"
                       : null}
                   </p>
                 </div>
@@ -146,7 +149,7 @@ export default function ShippingOrder(props: Props) {
                     : item.Status == 1
                     ? "Recibo"
                     : item.Status == 2
-                    ? "Tramite"
+                    ? "Transito"
                     : item.Status == 3
                     ? "Cerrado"
                     : ""}

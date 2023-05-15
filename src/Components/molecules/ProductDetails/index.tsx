@@ -41,7 +41,7 @@ export default function ProductDetails(props: Props) {
               <h4>Detalles del producto</h4>
               <AiOutlineCloseCircle
                 onClick={() => props.setItemCode(null)}
-                size={"16px"}
+                size={"20px"}
                 color={"gray"}
               />
             </div>
