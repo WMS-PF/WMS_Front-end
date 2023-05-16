@@ -3,7 +3,7 @@ import type { NextApiRequest, NextApiResponse } from "next";
 
 
 
-export async function updateOrderStatus2to3(
+export default async function updateOrderStatus2to3(
     req: NextApiRequest,
     res: NextApiResponse
   ) {
