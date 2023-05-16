@@ -5,8 +5,8 @@
   justify-content: center;
   align-items: center;
   width: 100%;
-  padding-inline: 39px;
-  padding-block: 80px;
+  padding-inline: 0px;
+  padding-block: 0px;
 }
 
 @media only screen and (min-device-width: 320px) and (max-device-width: 480px) and (min-device-height: 660px) {
