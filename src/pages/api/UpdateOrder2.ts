@@ -9,13 +9,13 @@ export default async function updateOrderStatus1to2(
   ) {
     if (req.method === "PUT") {
       try {
-        const { OrderID } = req.query;
+        const { OrderID } = req.body;
   
         // Buscar la orden con el ID correspondiente y con estado 1
         const orderToUpdate = await IncomingOrders.findOne({
           where: { OrderID: OrderID },
         });
-        console.log(orderToUpdate);
+
         if (orderToUpdate) {
           // Actualizar el estado de la orden
           orderToUpdate.Status = 2;
