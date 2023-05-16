@@ -72,7 +72,7 @@ export async function getAvailability() {
 
 export async function getOrderOut() {
   const object = await OutgoingOrders.findOne({
-    where: { Status: 0 },
+    where: { Status: 1 },
   });
   return object;
 }
